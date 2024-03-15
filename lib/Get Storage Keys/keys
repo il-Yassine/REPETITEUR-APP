@@ -1,0 +1,5 @@
+userData.write('teacherUserName', responseData['name']);
+          userData.write('teacherUserEmail', responseData['email']);
+          userData.write('userProfileImage', responseData['profile_photo_url']);
+          userData.write('teacherUserId', _userId);
+          userData.write('token', _token);

@@ -1,0 +1,116 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+
+class AdminResponseBody extends StatefulWidget {
+  const AdminResponseBody({super.key});
+
+  @override
+  State<AdminResponseBody> createState() => _AdminResponseBodyState();
+}
+
+class _AdminResponseBodyState extends State<AdminResponseBody> {
+  List<dynamic> messages = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchMessagesData();
+  }
+
+  Future<void> fetchMessagesData() async {
+    final userId = GetStorage().read("userId");
+
+    final messagesUrl =
+        'http://apirepetiteur.sevenservicesplus.com/api/messages?teacherUserId=$userId';
+
+    final response = await http.get(Uri.parse(messagesUrl));
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      final List<dynamic> responseData = jsonDecode(response.body)['data'];
+
+      setState(() {
+        messages = responseData;
+      });
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
+  String formatDate(String isoDate) {
+    // Analysez la date ISO 8601
+    DateTime parsedDate = DateTime.parse(isoDate);
+
+    // Formatez la date selon le format souhaité (YYYY-MM-DD)
+    String formattedDate = DateFormat('yyyy-MM-dd').format(parsedDate);
+
+    return formattedDate;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Réponse de l'administrateur"),
+        centerTitle: true,
+        elevation: 0,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          children: [
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: DataTable(
+                  columns: const [
+                   // DataColumn(label: Text('No.')),
+                    DataColumn(
+                        label: Text(
+                      "Date",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87),
+                    )),
+                    DataColumn(
+                        label: Text(
+                      "Message",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87),
+                    )),
+                    DataColumn(
+                        label: Text(
+                      "Réponse",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87),
+                    )),
+                  ],
+                  rows: messages.asMap().entries.map((entry) {
+                    final int index = entry.key + 1;
+                    final Map<String, dynamic> messagesList = entry.value;
+
+                    final String messageDate = messagesList['created_at'] ?? '';
+                    final String userMessage = messagesList['message'] ?? '';
+                    final String adminResponse = messagesList['reponse_admin'] ?? '';
+
+                    return DataRow(cells: [
+                    //  DataCell(Text('$index')),
+                      DataCell(Text(formatDate(messageDate))),
+                      DataCell(Text(userMessage, maxLines: 5,)),
+                      DataCell(Text(adminResponse, maxLines: 5,)),
+                    ]);
+                  }).toList()),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
