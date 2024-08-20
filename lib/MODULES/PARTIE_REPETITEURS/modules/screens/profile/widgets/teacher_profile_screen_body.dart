@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_REPETITEURS/modules/screens/authentication/info_adding/teacher_adding_infos_screen.dart';
+import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_REPETITEURS/modules/screens/authentication/info_updating/teacher_updating_infos_screen.dart';
 import 'package:repetiteur_mobile_app_definitive/core/utils/size_config.dart';
 import 'package:repetiteur_mobile_app_definitive/shared/ui/widgets/buttons/app_fill_button.dart';
 
@@ -16,8 +17,6 @@ class TeacherProfileScreenBody extends StatefulWidget {
 }
 
 class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
-
-
   @override
   void initState() {
     super.initState();
@@ -29,7 +28,7 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
     final teacherUserId = GetStorage().read("teacherUserId");
 
     final url =
-        "http://apirepetiteur.sevenservicesplus.com/api/repetiteurs?user_id=$teacherUserId";
+        "http://apirepetiteur.wadounnou.com/api/repetiteurs?user_id=$teacherUserId";
 
     final response = await http.get(Uri.parse(url));
 
@@ -45,7 +44,7 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
     final teacherUserId = GetStorage().read("teacherUserId");
 
     final url =
-        "http://apirepetiteur.sevenservicesplus.com/api/demandes?user_id=$teacherUserId";
+        "http://apirepetiteur.wadounnou.com/api/demandes?user_id=$teacherUserId";
 
     final response = await http.get(Uri.parse(url));
 
@@ -75,7 +74,7 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
           future: fetchData(),
           builder: (context, validRequestsCountSnapshot) {
             if (teacherDataSnapshot.connectionState ==
-                ConnectionState.waiting ||
+                    ConnectionState.waiting ||
                 validRequestsCountSnapshot.connectionState ==
                     ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -118,7 +117,8 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
                           child: AppFilledButton(
                             text: "Modifier",
                             onPressed: () {
-                              Navigator.pushNamed(context, TeacherAddingInformationScreen.routeName);
+                              Navigator.pushNamed(
+                                  context, TeacherUpdatingInfoScreen.routeName);
                             },
                             color: Colors.green,
                           ),
@@ -131,20 +131,25 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 1.0),
                           child: Padding(
-                            padding: EdgeInsets.all(SizeConfig.screenHeight * 0.01),
+                            padding:
+                                EdgeInsets.all(SizeConfig.screenHeight * 0.01),
                             child: ListView(
                               children: [
                                 const Text(
                                   "Photo de profil",
                                   style: TextStyle(
-                                      fontSize: 18.0, fontWeight: FontWeight.w700),
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w700),
                                 ),
                                 SizedBox(
                                   height: SizeConfig.screenHeight * 0.2,
-                                  child: Image.network(
-                                    '$profilPicture',
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: teacherData['profil_imageUrl'] == null
+                                      ? Image.network(
+                                          'https://apibackout.s3.amazonaws.com/images/1713947852vectoriel.jpg')
+                                      : Image.network(
+                                          '$profilPicture',
+                                          fit: BoxFit.cover,
+                                        ),
                                 ),
                                 SizedBox(
                                   height: SizeConfig.screenHeight * 0.03,
@@ -152,7 +157,8 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
                                 const Text(
                                   "Numéro de téléphone",
                                   style: TextStyle(
-                                      fontSize: 18.0, fontWeight: FontWeight.w700),
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w700),
                                 ),
                                 Text(
                                   "$phoneNumber",
@@ -165,7 +171,8 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
                                 const Text(
                                   "Commune",
                                   style: TextStyle(
-                                      fontSize: 18.0, fontWeight: FontWeight.w700),
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w700),
                                 ),
                                 Text(
                                   "$commune",
@@ -178,7 +185,8 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
                                 const Text(
                                   "Adresse du domicile",
                                   style: TextStyle(
-                                      fontSize: 18.0, fontWeight: FontWeight.w700),
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w700),
                                 ),
                                 Text(
                                   "$address",
@@ -188,10 +196,11 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
                                 SizedBox(
                                   height: SizeConfig.screenHeight * 0.03,
                                 ),
-
                                 const Text(
                                   "Nombre d'enfants encadré",
-                                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w700),
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w700),
                                 ),
                                 Text(
                                   "$validRequestsCount enfant(s)",
@@ -204,7 +213,8 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
                                 const Text(
                                   "Ecole de provenance",
                                   style: TextStyle(
-                                      fontSize: 18.0, fontWeight: FontWeight.w700),
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w700),
                                 ),
                                 Text(
                                   "$ecole",
@@ -217,7 +227,8 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
                                 const Text(
                                   "Mon emploie du temps",
                                   style: TextStyle(
-                                      fontSize: 18.0, fontWeight: FontWeight.w700),
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w700),
                                 ),
                                 Text(
                                   "$disponibilite",
@@ -230,7 +241,8 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
                                 const Text(
                                   "Date et lieu de naissance",
                                   style: TextStyle(
-                                      fontSize: 18.0, fontWeight: FontWeight.w700),
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w700),
                                 ),
                                 Text(
                                   "$dateLieuNaissance",
@@ -243,7 +255,8 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
                                 const Text(
                                   "Niveau d'etude",
                                   style: TextStyle(
-                                      fontSize: 18.0, fontWeight: FontWeight.w700),
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w700),
                                 ),
                                 Text(
                                   "$studyLevel",
@@ -256,14 +269,14 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
                                 const Text(
                                   "Mon expérience :",
                                   style: TextStyle(
-                                      fontSize: 18.0, fontWeight: FontWeight.w700),
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w700),
                                 ),
                                 Text(
                                   "$experience",
                                   style: TextStyle(
                                       fontSize: SizeConfig.screenHeight * 0.02),
                                 ),
-
                               ],
                             ),
                           ),

@@ -27,7 +27,7 @@ class AppCheckboxListTileFormField extends FormField<bool> {
           autovalidateMode: autovalidateMode,
           builder: (FormFieldState<bool> state) {
             errorColor ??=
-                (context == null ? Colors.red : Theme.of(context).errorColor);
+                (context == null ? Colors.red : Theme.of(context).primaryColor);
             return CheckboxListTile(
               title: Text(title ?? ''),
               dense: dense,

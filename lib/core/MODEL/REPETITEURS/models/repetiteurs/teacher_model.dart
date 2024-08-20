@@ -30,29 +30,29 @@ class TeacherModel {
 }
 
 class Teachers {
-    String id;
-    String diplomeImageUrl;
-    String profilImageUrl;
-    String adresse;
-    String description;
-    String phone;
-    String sexe;
-    String cycle;
-    String etats;
-    String evaluation;
-    String traitementDossiers;
-    String matricule;
-    String dateLieuNaissance;
-    String situationMatrimoniale;
-    String niveauEtude;
-    String heureDisponibilite;
-    String identite;
-    String casierJudiciaire;
-    String attestationResidence;
-    String grade;
-    String status;
-    String experience;
-    String ecole;
+    String? id;
+    String? diplomeImageUrl;
+    String? profilImageUrl;
+    String? adresse;
+    String? description;
+    String? phone;
+    String? sexe;
+    String? cycle;
+    String? etats;
+    String? evaluation;
+    String? traitementDossiers;
+    String? matricule;
+    String? dateLieuNaissance;
+    String? situationMatrimoniale;
+    String? niveauEtude;
+    String? heureDisponibilite;
+    String? identite;
+    String? casierJudiciaire;
+    String? attestationResidence;
+    String? grade;
+    String? status;
+    String? experience;
+    String? ecole;
     DateTime createdAt;
     DateTime updatedAt;
 

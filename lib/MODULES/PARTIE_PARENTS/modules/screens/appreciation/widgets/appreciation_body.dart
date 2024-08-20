@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_PARENTS/modules/screens/home/home_screen.dart';
@@ -53,7 +54,7 @@ class _AppreciationBodyState extends State<AppreciationBody> {
   Future<void> fetchData() async {
     final userId = GetStorage().read("userId");
     final url =
-        "http://apirepetiteur.sevenservicesplus.com/api/postes?user_id=$userId";
+        "http://apirepetiteur.wadounnou.com/api/postes?user_id=$userId";
 
     final response = await http.get(Uri.parse(url));
 
@@ -78,11 +79,16 @@ class _AppreciationBodyState extends State<AppreciationBody> {
     }
   }
 
+  String formatDate(String date) {
+    final DateTime dateTime = DateTime.parse(date);
+    return DateFormat('dd-MM-yyyy').format(dateTime);
+  }
+
   Widget buildFilterButton(String text, Color color, VoidCallback onPressed) {
     return SizedBox(
-      width: SizeConfig.screenWidth * 0.6,
+      width: SizeConfig.screenWidth * 0.4,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
         child: AppFilledButton(
           text: text,
           color: color,
@@ -242,7 +248,7 @@ class _AppreciationBodyState extends State<AppreciationBody> {
                 final int index = entry.key + 1;
                 final Map<String, dynamic> appreciation = entry.value;
 
-                final String dateMessage = appreciation['poste'];
+                final String dateMessage = formatDate(appreciation['created_at']);
                 final String nomDeLenfant =
                     appreciation['demande']['enfants']['lname'];
                 final String prenomDeLenfant =
@@ -264,7 +270,7 @@ class _AppreciationBodyState extends State<AppreciationBody> {
                   DataCell(Text(dateMessage)),
                   DataCell(Text('$nomDeLenfant $prenomDeLenfant')),
                   DataCell(Text(matiere)),
-                  DataCell(Text(appreciationRepetiteur)),
+                  DataCell(Text(appreciationRepetiteur, maxLines: 3,)),
                   DataCell(Text(nomPrenomRepetiteur)),
                   reponseParents == null
                       ? DataCell(TextButton(
@@ -383,7 +389,7 @@ class _AppreciationBodyState extends State<AppreciationBody> {
                                                     dispose();
                                                     showMessage(
                                                       message:
-                                                          'Opération réussie ! ',
+                                                          'Méssage envoyé ! ',
                                                       backgroundColor:
                                                           Colors.green,
                                                       context: context,
@@ -453,6 +459,7 @@ class _AppreciationBodyState extends State<AppreciationBody> {
     return Scaffold(
       backgroundColor: kBackground,
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: kWhite),
         backgroundColor: kPrimaryColor,
         title: const Text("Boîte de réception", style: TextStyle(color: kWhite),),
         centerTitle: true,
@@ -467,15 +474,15 @@ class _AppreciationBodyState extends State<AppreciationBody> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    buildFilterButton("Tous les messages",
+                    buildFilterButton("Tous",
                         const Color.fromARGB(255, 17, 135, 232), () {
                       updateFilterState(true, false, false);
                     }),
-                    buildFilterButton("Messages en attente",
+                    buildFilterButton("En attente",
                         const Color.fromARGB(255, 22, 190, 56), () {
                       updateFilterState(false, true, false);
                     }),
-                    buildFilterButton("Messages Répondus",
+                    buildFilterButton("Répondus",
                         const Color.fromARGB(255, 227, 172, 5), () {
                       updateFilterState(false, false, true);
                     }),

@@ -41,14 +41,12 @@ class _TeacherHomeScreenBodyState extends State<TeacherHomeScreenBody> {
     fetchAllMatieres();
   }
 
-  // http://apirepetiteur.sevenservicesplus.com/api/classes
-
   Future<List<Classes>> fetchAllClasses() async {
     try {
       final teacherUserId = GetStorage().read("teacherUserId");
 
       const allClassesUrl =
-          'http://apirepetiteur.sevenservicesplus.com/api/classes';
+          'http://apirepetiteur.wadounnou.com/api/classes';
 
       final response = await http.get(Uri.parse(allClassesUrl));
 
@@ -71,7 +69,7 @@ class _TeacherHomeScreenBodyState extends State<TeacherHomeScreenBody> {
   Future<List<Matieres>> fetchAllMatieres() async {
     try {
       const allMatieresUrl =
-          'http://apirepetiteur.sevenservicesplus.com/api/matieres';
+          'http://apirepetiteur.wadounnou.com/api/matieres';
       final response = await http.get(Uri.parse(allMatieresUrl));
 
       final body = jsonDecode(response.body);
@@ -94,6 +92,7 @@ class _TeacherHomeScreenBodyState extends State<TeacherHomeScreenBody> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: kWhite),
         backgroundColor: kPrimaryColor,
         title: const Text("Profil", style: TextStyle(color: kWhite),),
         centerTitle: true,

@@ -11,6 +11,7 @@ class AddChildScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: kWhite),
         backgroundColor: kPrimaryColor,
         title: Text("Ajouter un enfant", style: TextStyle(color: kWhite),),
         centerTitle: true,

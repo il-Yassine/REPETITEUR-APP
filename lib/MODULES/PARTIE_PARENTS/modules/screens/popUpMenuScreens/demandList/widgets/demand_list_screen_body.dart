@@ -51,7 +51,7 @@ class _DemandListScreenBodyState extends State<DemandListScreenBody> {
   Future<String> getParentId() async {
     // L'URL de votre API
     var url =
-        Uri.parse('http://apirepetiteur.sevenservicesplus.com/api/parents');
+        Uri.parse('http://apirepetiteur.wadounnou.com/api/parents');
 
     // Récupérez le token de l'utilisateur connecté
     String token = GetStorage().read("token");
@@ -82,7 +82,7 @@ class _DemandListScreenBodyState extends State<DemandListScreenBody> {
     final userId = GetStorage().read("userId");
 
     final url =
-        "http://apirepetiteur.sevenservicesplus.com/api/demandes?user_id=$userId";
+        "http://apirepetiteur.wadounnou.com/api/demandes?user_id=$userId";
 
     final response = await http.get(Uri.parse(url));
 
@@ -106,7 +106,7 @@ class _DemandListScreenBodyState extends State<DemandListScreenBody> {
           children: [
             Row(
               children: [
-                Expanded(
+                /*Expanded(
                   child: AddChildButton(
                     text: 'Ajouter un enfant',
                     iconData: CupertinoIcons.add,
@@ -118,10 +118,10 @@ class _DemandListScreenBodyState extends State<DemandListScreenBody> {
                 ),
                 SizedBox(
                   width: SizeConfig.screenWidth * 0.04,
-                ),
+                ),*/
                 Expanded(
                   child: DemandFormButton(
-                    text: 'Formulaire de demande',
+                    text: 'Nouvelle demande',
                     press: () {
                       Navigator.pushNamed(context, AddTeacherScreen.routeName);
                     },

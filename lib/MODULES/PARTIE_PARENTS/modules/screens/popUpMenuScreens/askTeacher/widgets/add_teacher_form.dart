@@ -16,6 +16,7 @@ import 'package:repetiteur_mobile_app_definitive/core/constants/PARENTS/constant
 import 'package:repetiteur_mobile_app_definitive/core/utils/size_config.dart';
 import 'package:repetiteur_mobile_app_definitive/core/utils/widgets/routers.dart';
 import 'package:repetiteur_mobile_app_definitive/core/utils/widgets/snack_message.dart';
+import 'package:repetiteur_mobile_app_definitive/inputs/app_input_field.dart';
 import 'package:repetiteur_mobile_app_definitive/inputs/base_input_field.dart';
 import 'package:repetiteur_mobile_app_definitive/provider/demand_provider/post_demande_provider.dart';
 import 'package:repetiteur_mobile_app_definitive/shared/ui/colors.dart';
@@ -30,7 +31,54 @@ class AddTeacherForm extends StatefulWidget {
 }
 
 class _AddTeacherFormState extends State<AddTeacherForm> {
+
   final _formKey = GlobalKey<FormState>();
+
+  String? lastname;
+  String? firstname;
+  String? phone;
+  String? address;
+  String? sexe;
+
+  final TextEditingController _lastnameController = TextEditingController();
+  final TextEditingController _firstnameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _sexeController = TextEditingController();
+
+  final userId = GetStorage().read("userId");
+
+  Future<String> getParentId() async {
+    // L'URL de votre API
+    var url = Uri.parse('http://apirepetiteur.wadounnou.com/api/parents?user_id=$userId');
+
+    // Récupérez le token de l'utilisateur connecté
+    String token = GetStorage().read("token");
+
+    // Effectuez la requête GET avec le token dans l'en-tête
+    var response = await http.get(url, headers: {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json'
+    });
+
+    // Vérifiez si la requête a réussi
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      // Si la requête a réussi, parsez la réponse en JSON
+      var jsonResponse = jsonDecode(response.body);
+
+      // Obtenez le parent_id du premier élément de la liste 'data'
+      var parentId = jsonResponse['data'][0]['id'];
+
+      print('ID USER PARENT CONNECT : $userId');
+
+      // Retournez le parent_id
+      return parentId;
+    } else {
+      // Si la requête a échoué, lancez une exception
+      throw Exception('Failed to load parent_id');
+    }
+  }
+
   String selectedClasse = '';
   String selectedMatiere = '';
   String selectedChild = '';
@@ -63,7 +111,7 @@ class _AddTeacherFormState extends State<AddTeacherForm> {
 
   Future<void> fetchTarification(String classe, String matiere) async {
     const apiUrl =
-        "http://apirepetiteur.sevenservicesplus.com/api/tarifications";
+        "http://apirepetiteur.wadounnou.com/api/tarifications";
     try {
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -106,7 +154,7 @@ class _AddTeacherFormState extends State<AddTeacherForm> {
   Future<void> fetchRepetiteursMatricule(String classe, String matiere) async {
     // Remplacez l'URL avec l'API appropriée pour récupérer les répétiteurs
     const apiUrl =
-        "http://apirepetiteur.sevenservicesplus.com/api/repetiteurmcs";
+        "http://apirepetiteur.wadounnou.com/api/repetiteurmcs";
 
     try {
       final response = await http.get(Uri.parse(apiUrl));
@@ -152,7 +200,7 @@ class _AddTeacherFormState extends State<AddTeacherForm> {
 
   Future<void> fetchRepetiteurs(String repetiteurId) async {
     const apiUrl =
-        "http://apirepetiteur.sevenservicesplus.com/api/repetiteurmcs";
+        "http://apirepetiteur.wadounnou.com/api/repetiteurmcs";
 
     try {
       final response = await http.get(Uri.parse(apiUrl));
@@ -225,6 +273,11 @@ class _AddTeacherFormState extends State<AddTeacherForm> {
 
   @override
   void dispose() {
+    _lastnameController.clear();
+    _firstnameController.clear();
+    _sexeController.clear();
+    _phoneController.clear();
+    _addressController.clear();
     _remunerationController.dispose();
     super.dispose();
   }
@@ -233,6 +286,7 @@ class _AddTeacherFormState extends State<AddTeacherForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: kWhite),
         backgroundColor: kPrimaryColor,
         title: const Text("Demande de répétiteur", style: TextStyle(color: kWhite)),
         centerTitle: true,
@@ -241,7 +295,7 @@ class _AddTeacherFormState extends State<AddTeacherForm> {
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
+            /*Padding(
               padding: const EdgeInsets.all(12.0),
               child: AddChildButton(
                 text: 'Ajouter un enfant',
@@ -251,7 +305,7 @@ class _AddTeacherFormState extends State<AddTeacherForm> {
                 },
                 color: kWhite,
               ),
-            ),
+            ),*/
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -260,50 +314,59 @@ class _AddTeacherFormState extends State<AddTeacherForm> {
                   child: ListView(
                     children: [
                       SizedBox(
-                        height: SizeConfig.screenHeight * 0.01,
+                        height: SizeConfig.screenHeight * 0.03,
                       ),
-                      BaseInputField(
-                        title: "Enfants",
-                        inputControl: DropdownButtonFormField<String>(
-                          items: chidrenList.map((child) {
-                            return DropdownMenuItem<String>(
-                              value: "${child.nom} ${child.prenom}",
-                              child: Text("${child.nom} ${child.prenom}"),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              selectedChild = value!;
-                              selectedChildId = chidrenList
-                                  .firstWhere((child) =>
-                                      "${child.nom} ${child.prenom}" ==
-                                      selectedChild)
-                                  .id;
-                              debugPrint(
-                                  "ID de l'enfant sélectionné : $selectedChildId");
-                            });
-                          },
-                          isDense: true,
-                          isExpanded: true,
-                          iconSize: 22,
-                          icon: const Icon(Icons.keyboard_arrow_down_sharp),
-                          hint: const Text(
-                            'Choisissez un enfant',
-                            style: TextStyle(
-                              color: kcDarkGreyColor,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 14.0,
-                            ),
-                          ),
-                          decoration: const InputDecoration(
-                            isDense: true,
-                            border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10.0)),
-                            ),
-                          ),
-                        ),
+                      AppInputField(
+                        controller: _lastnameController,
+                        title: 'Nom de l\'enfant',
+                        borderColor: Colors.grey,
+                        hintText: 'Entrez le nom de l\'enfant',
+                        keyboardType: TextInputType.text,
                       ),
+                      SizedBox(
+                        height: SizeConfig.screenHeight * 0.02,
+                      ),
+                      AppInputField(
+                        controller: _firstnameController,
+                        title: 'Prénom de l\'enfant',
+                        borderColor: Colors.grey,
+                        hintText: 'Entrez le(s) prénom(s) de l\'enfant',
+                        keyboardType: TextInputType.text,
+                      ),
+                      SizedBox(
+                        height: SizeConfig.screenHeight * 0.02,
+                      ),
+                      AppInputField(
+                        controller: _sexeController,
+                        title: 'Sexe de l\'enfant',
+                        borderColor: Colors.grey,
+                        hintText: 'Masculin/Féminin',
+                        keyboardType: TextInputType.text,
+                      ),
+                      SizedBox(
+                        height: SizeConfig.screenHeight * 0.02,
+                      ),
+                      AppInputField(
+                        controller: _phoneController,
+                        title: 'Numéro de téléphone',
+                        borderColor: Colors.grey,
+                        hintText: 'Entrez votre numéro de téléphone',
+                        keyboardType: TextInputType.phone,
+                      ),
+                      SizedBox(
+                        height: SizeConfig.screenHeight * 0.02,
+                      ),
+                      AppInputField(
+                        controller: _addressController,
+                        title: 'Votre adresse de localisation',
+                        borderColor: Colors.grey,
+                        hintText: 'Entrez votre adresse',
+                        keyboardType: TextInputType.text,
+                      ),
+                      SizedBox(
+                        height: SizeConfig.screenHeight * 0.02,
+                      ),
+                      Text("Formulaire de demande"), //////////////////////////
                       SizedBox(
                         height: SizeConfig.screenHeight * 0.02,
                       ),
@@ -591,13 +654,19 @@ class _AddTeacherFormState extends State<AddTeacherForm> {
                           });
                           return AppFilledButton(
                             text: "Envoyer",
-                            onPressed: () {
+                            onPressed: () async {
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState!.save();
-                                send_demand.sendDemand(
+                                var parentId = await getParentId();
+                                send_demand.parentAddChilds(
+                                  lname: _lastnameController.text.trim(),
+                                  fname: _firstnameController.text.trim(),
+                                  sexe: _sexeController.text.trim(),
+                                  phone: _phoneController.text.trim(),
+                                  adresse: _addressController.text.trim(),
+                                  parents_id: parentId,
                                   tarification_id:
                                       selectedTarificationId.toString(),
-                                  enfants_id: selectedChildId.toString(),
                                   repetiteur_id: selectedTeacherId.toString(),
                                   description:
                                       _descriptionController.text.trim(),

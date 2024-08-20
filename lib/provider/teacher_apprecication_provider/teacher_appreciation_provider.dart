@@ -23,8 +23,6 @@ class TeacherPostAppreciationProvider extends ChangeNotifier {
     required String demandeId,
     required String teacherId,
     required String appreciation_repetiteur,
-    required String date,
-    required String message,
     BuildContext? context,
   }) async {
     _isLoading = true;
@@ -40,8 +38,6 @@ class TeacherPostAppreciationProvider extends ChangeNotifier {
       "demande_id": demandeId,
       "repetiteur_id": teacherId,
       "appreciation_repetiteur": appreciation_repetiteur,
-      "poste": date,
-      "message": message,
     };
     debugPrint('$body');
     debugPrint(token);

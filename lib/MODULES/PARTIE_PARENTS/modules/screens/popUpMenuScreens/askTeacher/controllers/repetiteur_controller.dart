@@ -9,7 +9,7 @@ class RepetiteurController extends GetxController {
   Future<Map<String, dynamic>> getPrixAndRepetiteurFromAPI(
       String idMatiere, String idClasse) async {
     const String apiUrl =
-        "http://apirepetiteur.sevenservicesplus.com/api/repetiteurmcs";
+        "http://apirepetiteur.wadounnou.com/api/repetiteurmcs";
     try {
       final response = await http.post(Uri.parse(apiUrl));
       if (response.statusCode == 200 || response.statusCode == 201) {

@@ -25,7 +25,7 @@ class TeacherAddingInformationProvider extends ChangeNotifier {
 
   Future<String?> getUserIdByName(String name) async {
     final usersUrl = Uri.parse(
-        'http://apirepetiteur.sevenservicesplus.com/api/users?name=$name');
+        'http://apirepetiteur.wadounnou.com/api/users?name=$name');
 
     var client = http.Client();
 
@@ -70,7 +70,7 @@ class TeacherAddingInformationProvider extends ChangeNotifier {
 
     if (adminUserId != null) {
       final notificationUrl = Uri.parse(
-          'http://apirepetiteur.sevenservicesplus.com/api/notifications');
+          'http://apirepetiteur.wadounnou.com/api/notifications');
 
       var client = http.Client();
 
@@ -135,7 +135,7 @@ class TeacherAddingInformationProvider extends ChangeNotifier {
     final teacherUserId = GetStorage().read("teacherUserId");
     final teacherToken = GetStorage().read("token");
 
-    var uploadeInformationsUrl = Uri.https(requestBaseUrl, '/api/repetiteurs');
+    var uploadInformationsUrl = Uri.https(requestBaseUrl, '/api/repetiteurs');
 
     var client = http.Client();
 
@@ -166,7 +166,7 @@ class TeacherAddingInformationProvider extends ChangeNotifier {
 
     try {
       var request = await client.post(
-        uploadeInformationsUrl,
+        uploadInformationsUrl,
         body: body,
         headers: {
           'Authorization': 'Bearer $teacherToken',
@@ -179,6 +179,8 @@ class TeacherAddingInformationProvider extends ChangeNotifier {
       if (request.statusCode == 200 || request.statusCode == 201) {
         final res = jsonDecode(request.body);
         final teacherId = res['data']['id'];
+
+        GetStorage().write('teacherId', teacherId);
 
         debugPrint("repetiteur_id ::: $teacherId");
 

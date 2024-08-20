@@ -11,6 +11,7 @@ class DemandListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: kWhite),
         backgroundColor: kPrimaryColor,
         title: const Text('Liste des demandes', style: TextStyle(color: kWhite)),
         centerTitle: true,

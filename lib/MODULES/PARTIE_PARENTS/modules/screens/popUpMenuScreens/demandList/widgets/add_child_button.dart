@@ -21,7 +21,7 @@ class AddChildButton extends StatelessWidget {
       child: Container(
         height: SizeConfig.screenHeight * 0.06,
         decoration: const BoxDecoration(
-            color: Colors.blueAccent,
+            color: Colors.orangeAccent,
             borderRadius: BorderRadius.all(Radius.circular(10.0))),
         child: Center(
           child: Row(

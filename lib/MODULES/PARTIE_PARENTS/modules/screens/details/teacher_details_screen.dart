@@ -15,8 +15,7 @@ import 'package:http/http.dart' as http;
 class TeacherDetailsScreen extends StatefulWidget {
   static String routeName = '/teacher_detail_screen';
 
-  final Teachers teachers; // Assurez-vous que la classe Teachers est correcte
-  final String repetiteurId;
+
 
   const TeacherDetailsScreen({
     Key? key,
@@ -24,11 +23,15 @@ class TeacherDetailsScreen extends StatefulWidget {
     required this.repetiteurId,
   }) : super(key: key);
 
+  final Teachers teachers; // Assurez-vous que la classe Teachers est correcte
+  final String repetiteurId;
+
   @override
   State<TeacherDetailsScreen> createState() => _TeacherDetailsScreenState();
 }
 
 class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
+
   String classe = '';
   String matiere = '';
 
@@ -42,7 +45,7 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
     try {
       final response = await http.get(
         Uri.parse(
-            'http://apirepetiteur.sevenservicesplus.com/api/repetiteurmcs?repetiteur_id=${widget.repetiteurId}'),
+            'http://apirepetiteur.wadounnou.com/api/repetiteurmcs?repetiteur_id=${widget.repetiteurId}'),
       );
 
       print(' ::::::::::::::::::::: ${widget.repetiteurId}');
@@ -70,7 +73,7 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
     try {
       final response = await http.post(
           Uri.parse(
-              'http://apirepetiteur.sevenservicesplus.com/api/evaluations'),
+              'https://apirepetiteur.wadounnou.com/api/evaluations'),
           body: {
             "repetiteur_id": widget.repetiteurId,
             "niveauEvaluation": rating.toString(),
@@ -101,21 +104,22 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          iconTheme: const IconThemeData(color: kWhite),
           backgroundColor: kPrimaryColor,
-          title: Text(arguments!.teachers.user.name.toString(), style: TextStyle(color: kWhite),),
+          title: Text(arguments!.teachers.user.name.toString(), style: const TextStyle(color: kWhite),),
           centerTitle: true,
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 15.0),
               child: CircleAvatar(
-                backgroundImage: NetworkImage(
-                  arguments.teachers.profilImageUrl,
-                ),
+                backgroundImage: widget.teachers.profilImageUrl.toString() != 'null' ? NetworkImage(
+                  widget.teachers.profilImageUrl.toString(),
+                ) : const NetworkImage('https://apibackout.s3.amazonaws.com/images/1713947852vectoriel.jpg'),
                 radius: 20,
               ),
             )
           ],
-          bottom: TabBar(
+          bottom: const TabBar(
               indicatorColor: kWhite,
               indicatorSize: TabBarIndicatorSize.tab,
               labelColor: kPrimaryColor,
@@ -148,7 +152,7 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
                   ),
                   verticalSpaceTiny,
                   Text(
-                    arguments.teachers.matricule,
+                    arguments.teachers.matricule.toString(),
                     maxLines: 4,
                     style: const TextStyle(
                         fontSize: 15.0, fontWeight: FontWeight.normal),
@@ -192,7 +196,7 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
                   ),
                   verticalSpaceTiny,
                   Text(
-                    arguments.teachers.cycle,
+                    arguments.teachers.cycle.toString(),
                     maxLines: 4,
                     style: const TextStyle(
                         fontSize: 15.0, fontWeight: FontWeight.normal),
@@ -207,7 +211,7 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
                   ),
                   verticalSpaceTiny,
                   Text(
-                    arguments.teachers.etats,
+                    arguments.teachers.etats.toString(),
                     maxLines: 4,
                     style: const TextStyle(
                         fontSize: 15.0, fontWeight: FontWeight.normal),
@@ -222,7 +226,7 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
                   ),
                   verticalSpaceTiny,
                   Text(
-                    arguments.teachers.heureDisponibilite,
+                    arguments.teachers.heureDisponibilite.toString(),
                     maxLines: 4,
                     style: const TextStyle(
                         fontSize: 15.0, fontWeight: FontWeight.normal),
@@ -237,7 +241,7 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
                   ),
                   verticalSpaceTiny,
                   Text(
-                    arguments.teachers.niveauEtude,
+                    arguments.teachers.niveauEtude.toString(),
                     maxLines: 4,
                     style: const TextStyle(
                         fontSize: 15.0, fontWeight: FontWeight.normal),
@@ -276,7 +280,7 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
                     ),
                     verticalSpaceTiny,
                     Text(
-                      arguments.teachers.status,
+                      arguments.teachers.status.toString(),
                       maxLines: 4,
                       style: const TextStyle(
                           fontSize: 15.0, fontWeight: FontWeight.normal),
@@ -292,7 +296,7 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
                     ),
                     verticalSpaceTiny,
                     Text(
-                      arguments.teachers.description,
+                      arguments.teachers.description.toString(),
                       maxLines: 4,
                       style: const TextStyle(
                           fontSize: 15.0, fontWeight: FontWeight.normal),
@@ -308,7 +312,7 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
                     ),
                     verticalSpaceTiny,
                     Text(
-                      arguments.teachers.adresse,
+                      arguments.teachers.adresse.toString(),
                       maxLines: 4,
                       style: const TextStyle(
                           fontSize: 15.0, fontWeight: FontWeight.normal),
@@ -324,7 +328,7 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
                     ),
                     verticalSpaceTiny,
                     Text(
-                      arguments.teachers.ecole,
+                      arguments.teachers.ecole.toString(),
                       maxLines: 4,
                       style: const TextStyle(
                           fontSize: 15.0, fontWeight: FontWeight.normal),
@@ -340,7 +344,7 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
                     ),
                     verticalSpaceTiny,
                     Text(
-                      arguments.teachers.grade,
+                      arguments.teachers.grade.toString(),
                       maxLines: 4,
                       style: const TextStyle(
                           fontSize: 15.0, fontWeight: FontWeight.normal),
@@ -356,7 +360,7 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
                     ),
                     verticalSpaceTiny,
                     Text(
-                      arguments.teachers.evaluation,
+                      arguments.teachers.evaluation.toString(),
                       maxLines: 4,
                       style: const TextStyle(
                           fontSize: 15.0, fontWeight: FontWeight.normal),
@@ -372,7 +376,7 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
                     ),
                     verticalSpaceTiny,
                     Text(
-                      arguments.teachers.experience,
+                      arguments.teachers.experience.toString(),
                       maxLines: 4,
                       style: const TextStyle(
                           fontSize: 15.0, fontWeight: FontWeight.normal),
@@ -388,7 +392,7 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
                     ),
                     verticalSpaceTiny,
                     Text(
-                      arguments.teachers.situationMatrimoniale,
+                      arguments.teachers.situationMatrimoniale.toString(),
                       maxLines: 4,
                       style: const TextStyle(
                           fontSize: 15.0, fontWeight: FontWeight.normal),

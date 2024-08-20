@@ -11,6 +11,7 @@ class PayementListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: kWhite),
         backgroundColor: kPrimaryColor,
         title: Text('Liste de vos paiements', style: TextStyle(color: kWhite)),
         centerTitle: true,

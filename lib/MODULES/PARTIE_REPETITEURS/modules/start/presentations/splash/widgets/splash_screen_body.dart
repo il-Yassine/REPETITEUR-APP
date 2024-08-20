@@ -1,13 +1,19 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_PARENTS/modules/screens/home/home_screen.dart';
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_PARENTS/modules/screens/select_role_page/selected_role_screen.dart';
+import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_PARENTS/modules/start/presentations/onBoarding/onboarding_screen.dart';
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_REPETITEURS/modules/screens/home/home_screen.dart';
+import 'package:repetiteur_mobile_app_definitive/core/MODEL/role/fetch_all_users_role.dart';
 import 'package:repetiteur_mobile_app_definitive/core/constants/REPETITEURS/constants.dart';
 import 'package:repetiteur_mobile_app_definitive/core/utils/size_config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreenBody extends StatefulWidget {
-  const SplashScreenBody({super.key});
+  const SplashScreenBody({super.key, required this.nextScreen});
+
+  final Widget nextScreen;
 
   @override
   State<SplashScreenBody> createState() => _SplashScreenBodyState();
@@ -54,6 +60,31 @@ class _SplashScreenBodyState extends State<SplashScreenBody> {
         nextScreen: /* checkRoleAndToken() ? TeacherHomeScreen() :  */const SelectedRoleScreen(),
     );
   }
+
+  checkPreferences() async {
+    final teacherRoleId = await fetchRepetiteurRoleId();
+    final parentRoleId = await fetchParentsRoleId();
+    final roleCheck = GetStorage().read('role_id');
+    // Initialisation d'une instance de Shared Preferences
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    // Creation d'une preference
+    final bool isFirstRun = preferences.getBool('isFirstRun') ?? true;
+
+    if(isFirstRun){
+      // Navigation vers l'interface de OnBoardingScreen
+      Navigator.pushReplacementNamed(context, OnBoardingScreen.routeName);
+      // Ici comme il n'y a aucune valeur dans la preference on initialise une preference à false
+      preferences.setBool('isFirstRun', false);
+    }else if (roleCheck == teacherRoleId){
+      // ici il existe déjà une valeur dans la preference on passe directement à l'interface de HomeScreen
+      Navigator.pushReplacementNamed(context, TeacherHomeScreen.routeName);
+      preferences.setBool('isFirstRun', true);
+    } else if (roleCheck == parentRoleId) {
+      Navigator.pushReplacementNamed(context, ParentHomeScreen.routeName);
+      preferences.setBool('isFirstRun', true);
+    }
+  }
+
   /* bool checkRoleAndToken(){
       final token = GetStorage().read('token');
       final roleId = GetStorage().read('role_id');

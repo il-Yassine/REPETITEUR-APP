@@ -14,17 +14,21 @@ import 'package:repetiteur_mobile_app_definitive/provider/authentication_provide
 import 'package:repetiteur_mobile_app_definitive/provider/authentication_provider/AUTH_PARENT/login/parent_login_auth_provider.dart';
 import 'package:repetiteur_mobile_app_definitive/provider/authentication_provider/AUTH_PARENT/register/parent_register_auth_provider.dart';
 import 'package:repetiteur_mobile_app_definitive/provider/authentication_provider/AUTH_REPETITEUR/login/teacher_login_auth_provider.dart';
+import 'package:repetiteur_mobile_app_definitive/provider/authentication_provider/AUTH_REPETITEUR/presence_au_poste/presence_poste_provider.dart';
 import 'package:repetiteur_mobile_app_definitive/provider/authentication_provider/AUTH_REPETITEUR/register/teacher_adding_information_provider.dart';
 import 'package:repetiteur_mobile_app_definitive/provider/authentication_provider/AUTH_REPETITEUR/register/teacher_file_upload_provider.dart';
 import 'package:repetiteur_mobile_app_definitive/provider/authentication_provider/AUTH_REPETITEUR/register/teacher_register_auth_provider.dart';
+import 'package:repetiteur_mobile_app_definitive/provider/authentication_provider/AUTH_REPETITEUR/register/teacher_update_informations_provider.dart';
 import 'package:repetiteur_mobile_app_definitive/provider/database/db_provider.dart';
 import 'package:repetiteur_mobile_app_definitive/provider/demand_provider/post_demande_provider.dart';
+import 'package:repetiteur_mobile_app_definitive/provider/forgot_password_provider.dart';
 import 'package:repetiteur_mobile_app_definitive/provider/parent_appreciation_provider.dart/parent_appreciation_provider.dart';
 import 'package:repetiteur_mobile_app_definitive/provider/parent_sent_message_provider/parent_message_provider.dart';
 import 'package:repetiteur_mobile_app_definitive/provider/payment_provider/parent_payment_provider.dart';
 import 'package:repetiteur_mobile_app_definitive/provider/post_classe_matiere/post_classe_matiere_provider.dart';
 import 'package:repetiteur_mobile_app_definitive/provider/role_provider.dart';
 import 'package:repetiteur_mobile_app_definitive/provider/teacher_apprecication_provider/teacher_appreciation_provider.dart';
+import 'package:repetiteur_mobile_app_definitive/provider/teacher_forgot_password_provider.dart';
 import 'package:repetiteur_mobile_app_definitive/provider/teacher_sent_message_provider/teacher_sent_message_provider.dart';
 
 Future<void> main() async {
@@ -49,9 +53,7 @@ Future<void> main() async {
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark));
 
-  runApp(MyApp(
-      /*showSplashScreen: showSplashScreen, showOnboarding: showOnboarding*/
-      ));
+  runApp(const MyApp());
 }
 
 class MyHttpOverrides extends HttpOverrides {
@@ -70,6 +72,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => ForgotPasswordProvider()),
+        ChangeNotifierProvider(create: (context) => TeacherForgotPasswordProvider()),
+        ChangeNotifierProvider(create: (context) => PresenceAuPosteProvider()),
+        ChangeNotifierProvider(create: (context) => TeacherUpdateInformationsProvider()),
         ChangeNotifierProvider(create: (context) => DatabaseProvider()),
         ChangeNotifierProvider(create: (context) => TeacherAddingInformationProvider()),
         ChangeNotifierProvider(create: (context) => AddClasseAndCoursesProvider()),
@@ -94,7 +100,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => RoleProvider())
       ],
       child: GetMaterialApp(
-        title: 'Mon Répétiteur',
+        title: 'Mon Encadreur',
         defaultTransition: Transition.rightToLeft,
         theme: ThemeData(
           useMaterial3: true,

@@ -34,19 +34,7 @@ class _TeacherScreenState extends State<TeacherScreen> {
         isRefresh = true;
       });
       List<Teachers> teachers = await TeacherList.getAllTeacher();
-
-      /* ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('La page a été mis à jour'),
-        ),
-      ); */
     } catch (e) {
-      /* ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-              "Erreur lors de l'actualisation de la page. Vérifier votre connexion internet..."),
-        ),
-      ); */
       print(("Erreur: ${e}"));
     } finally {
       setState(() {
@@ -120,7 +108,7 @@ class _TeacherScreenState extends State<TeacherScreen> {
           } else {
             return SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+              padding: const EdgeInsets.symmetric(vertical: 12),
               child: Row(
                 children: [
                   //Product Single Card

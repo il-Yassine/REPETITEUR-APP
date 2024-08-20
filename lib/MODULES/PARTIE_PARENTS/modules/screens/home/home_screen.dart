@@ -77,15 +77,15 @@ class _ParentHomeScreenState extends State<ParentHomeScreen> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
               child: GNav(
-                rippleColor: Colors.blue.shade400,
-                hoverColor: Colors.blueAccent.shade100,
+                rippleColor: Colors.orange.shade400,
+                hoverColor: Colors.orangeAccent.shade100,
                 gap: 8,
                 activeColor: kPrimaryColor,
                 iconSize: 20,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 duration: const Duration(milliseconds: 400),
-                tabBackgroundColor: Colors.blue.withOpacity(0.3),
+                tabBackgroundColor: Colors.orange.withOpacity(0.3),
                 color: kPrimaryColor,
                 tabs: const [
                   GButton(

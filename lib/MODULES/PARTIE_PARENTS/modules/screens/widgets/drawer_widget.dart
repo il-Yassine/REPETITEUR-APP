@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:badges/badges.dart' as badges;
 import 'package:provider/provider.dart';
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_PARENTS/modules/screens/appreciation/appreciation_screen.dart';
+import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_PARENTS/modules/screens/appreciation/pour_repetiteur/list_appreciation_pour_repetiteur.dart';
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_PARENTS/modules/screens/authentication/login/login_screen.dart';
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_PARENTS/modules/screens/authentication/register/register_screen.dart';
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_PARENTS/modules/screens/bibliotheque/bibliotheque_screen.dart';
@@ -44,7 +45,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     final userId = GetStorage().read("userId");
 
     final url =
-        "http://apirepetiteur.sevenservicesplus.com/api/postes?user_id=$userId";
+        "http://apirepetiteur.wadounnou.com/api/postes?user_id=$userId";
 
     final response = await http.get(Uri.parse(url));
 
@@ -65,7 +66,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     final userId = GetStorage().read("userId");
 
     final notificationsUrl =
-        'http://apirepetiteur.sevenservicesplus.com/api/notifications?user_id=$userId';
+        'http://apirepetiteur.wadounnou.com/api/notifications?user_id=$userId';
 
     final response = await http.get(Uri.parse(notificationsUrl));
 
@@ -89,7 +90,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
   Future<void> markNotificationsAsRead() async {
     for (String notificationId in unreadNotificationIds) {
       final notificationsUrl =
-          'http://apirepetiteur.sevenservicesplus.com/api/notifications/$notificationId';
+          'http://apirepetiteur.wadounnou.com/api/notifications/$notificationId';
 
       final response = await http.put(
         Uri.parse(notificationsUrl),
@@ -164,6 +165,17 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                   Navigator.pushNamed(context, AdminResponseScreen.routeName);
                 },
               ),
+            ),
+          if (token != null && token.isNotEmpty)
+            GestureDetector(
+              child: const CustomListTileWidget(
+                text: 'Appréciations',
+                iconData: Icons.add_reaction_outlined,
+                iconColor: kPrimaryColor,
+              ),
+              onTap: () {
+               Navigator.pushNamed(context, AppreciationPourRepetiteur.routeName);
+              },
             ),
           if (token != null && token.isNotEmpty)
             GestureDetector(

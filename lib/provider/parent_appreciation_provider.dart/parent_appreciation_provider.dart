@@ -28,7 +28,7 @@ class ParentPostAppreciationProvider extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
-    var postAppreciationUrl = Uri.https(requestBaseUrl, '/api/postes');
+    var postAppreciationUrl = Uri.https(requestBaseUrl, '/api/appreciations');
 
     var client = http.Client();
 

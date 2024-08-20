@@ -47,6 +47,7 @@ class _MessageUsBodyState extends State<MessageUsBody> {
       backgroundColor: kBackground,
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
+        iconTheme: const IconThemeData(color: kWhite),
         title: const Text("Laissez-nous un message", style: TextStyle(color: kWhite),),
         centerTitle: true,
         elevation: 0.0,

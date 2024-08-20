@@ -95,6 +95,46 @@ class _TeachersScreenBodyState extends State<TeachersScreenBody> {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
+                SizedBox(
+                  width: SizeConfig.screenWidth * 0.8,
+                  child: Padding(
+                    padding:
+                    EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                    child: BaseInputField(
+                        title: "Disponibilité",
+                        inputControl: DropdownButtonFormField<String>(
+                          items: disponibilites.map((disponibilite) {
+                            return DropdownMenuItem<String>(
+                              value: disponibilite,
+                              child: Text(disponibilite),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            selectedDisponibilite = value!;
+                            fetchFilteredTeachers(
+                              cycle: selectedCycle,
+                              disponibilite: selectedDisponibilite,
+                            );
+                          },
+                          isDense: true,
+                          isExpanded: true,
+                          iconSize: 22,
+                          icon: const Icon(Icons.keyboard_arrow_down_sharp),
+                          hint: const Text(
+                            'Tous',
+                            style: TextStyle(
+                                color: kcDarkGreyColor,
+                                fontWeight: FontWeight.normal,
+                                fontSize: 14.0),
+                          ),
+                          decoration: const InputDecoration(
+                              isDense: true,
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)))),
+                        )),
+                  ),
+                ),
                 /* SizedBox(
                   width: SizeConfig.screenWidth * 0.8,
                   child: Padding(
@@ -206,46 +246,7 @@ class _TeachersScreenBodyState extends State<TeachersScreenBody> {
                         )),
                   ),
                 ), */
-                SizedBox(
-                  width: SizeConfig.screenWidth * 0.8,
-                  child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
-                    child: BaseInputField(
-                        title: "Disponibilité",
-                        inputControl: DropdownButtonFormField<String>(
-                          items: disponibilites.map((disponibilite) {
-                            return DropdownMenuItem<String>(
-                              value: disponibilite,
-                              child: Text(disponibilite),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            selectedDisponibilite = value!;
-                            fetchFilteredTeachers(
-                              cycle: selectedCycle,
-                              disponibilite: selectedDisponibilite,
-                            );
-                          },
-                          isDense: true,
-                          isExpanded: true,
-                          iconSize: 22,
-                          icon: const Icon(Icons.keyboard_arrow_down_sharp),
-                          hint: const Text(
-                            'Tous',
-                            style: TextStyle(
-                                color: kcDarkGreyColor,
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14.0),
-                          ),
-                          decoration: const InputDecoration(
-                              isDense: true,
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)))),
-                        )),
-                  ),
-                ),
+
               ],
             ),
           ),
@@ -299,7 +300,7 @@ class _TeachersScreenBodyState extends State<TeachersScreenBody> {
                       : true;
 
                   bool matchesDisponibilite = selectedDisponibilite.isNotEmpty
-                      ? teacher.etats.toLowerCase() ==
+                      ? teacher.etats!.toLowerCase() ==
                           selectedDisponibilite.toLowerCase()
                       : true;
 
@@ -345,7 +346,7 @@ class _TeachersScreenBodyState extends State<TeachersScreenBody> {
                                 context, TeacherDetailsScreen.routeName,
                                 arguments: TeacherDetailsArgument(
                                     teachers: filteredTeachers[index],
-                                    repetiteurId: filteredTeachers[index].id));
+                                    repetiteurId: filteredTeachers[index].id.toString()));
                           })),
                 );
               }

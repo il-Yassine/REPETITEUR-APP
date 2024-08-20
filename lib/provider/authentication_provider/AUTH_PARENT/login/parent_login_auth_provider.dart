@@ -160,7 +160,7 @@ class ParentLoginProvider extends ChangeNotifier {
     }
   }
 
-  final profilUrl = "http://apirepetiteur.sevenservicesplus.com/api/profile";
+  final profilUrl = "http://apirepetiteur.wadounnou.com/api/profile";
   Future<bool> checkUserRoleId(String token) async {
     try {
       final parentRoleId = await fetchParentsRoleId();

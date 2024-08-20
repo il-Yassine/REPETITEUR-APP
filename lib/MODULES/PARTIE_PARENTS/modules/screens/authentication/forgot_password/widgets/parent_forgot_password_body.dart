@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:repetiteur_mobile_app_definitive/core/constants/PARENTS/constants.dart';
 import 'package:repetiteur_mobile_app_definitive/core/utils/size_config.dart';
 import 'package:repetiteur_mobile_app_definitive/core/utils/widgets/snack_message.dart';
+import 'package:repetiteur_mobile_app_definitive/provider/forgot_password_provider.dart';
 import 'package:repetiteur_mobile_app_definitive/shared/ui/widgets/buttons/app_fill_button.dart';
 import 'package:repetiteur_mobile_app_definitive/widgets/form_errors.dart';
 
@@ -64,22 +66,34 @@ class _ParentForgotPasswordBodyState extends State<ParentForgotPasswordBody> {
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: SizedBox(
                   width: double.infinity,
-                  child: AppFilledButton(
+                  child: Consumer<ForgotPasswordProvider>(
+                    builder: (context, snapshot, child) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    if (snapshot.resMessage != '') {
+                      showMessage(
+                          message: snapshot.resMessage, context: context);
+                      snapshot.clear();
+                    }
+                  });
+                  return AppFilledButton(
                     text: "Suivant",
                     color: kPrimaryColor,
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
-                        /* Navigator.pushNamed(context, TeacherHomeScreen.routeName); */
+                        snapshot.sendEmailForResetPassword(
+                          context: context,
+                            email: _emailController.text.trim());
                       } else if (_emailController.text.isEmpty) {
                         showMessage(
-                          message: 'Le champ email est obligatoire dans ce cas',
-                          backgroundColor: Colors.red,
+                          message:
+                          'L\'email est obligatoire',
                           context: context,
                         );
                       }
                     },
-                  ),
+                  );
+                }),
                 ),
               ),
               ],

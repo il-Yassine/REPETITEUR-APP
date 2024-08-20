@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "repetiteur_app_final" "\0"
+            VALUE "FileDescription", "repetiteur_mobile_app_definitive" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "repetiteur_app_final" "\0"
+            VALUE "InternalName", "repetiteur_mobile_app_definitive" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "repetiteur_app_final.exe" "\0"
-            VALUE "ProductName", "repetiteur_app_final" "\0"
+            VALUE "OriginalFilename", "repetiteur_mobile_app_definitive.exe" "\0"
+            VALUE "ProductName", "repetiteur_mobile_app_definitive" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

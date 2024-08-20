@@ -22,7 +22,8 @@ class TeacherDashboardScreenBody extends StatefulWidget {
       _TeacherDashboardScreenBodyState();
 }
 
-class _TeacherDashboardScreenBodyState extends State<TeacherDashboardScreenBody> {
+class _TeacherDashboardScreenBodyState
+    extends State<TeacherDashboardScreenBody> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _appreciationController = TextEditingController();
@@ -64,7 +65,7 @@ class _TeacherDashboardScreenBodyState extends State<TeacherDashboardScreenBody>
     final teacherUserId = GetStorage().read("teacherUserId");
 
     final url =
-        "http://apirepetiteur.sevenservicesplus.com/api/demandes?user_id=$teacherUserId";
+        "http://apirepetiteur.wadounnou.com/api/demandes?user_id=$teacherUserId";
 
     final response = await http.get(Uri.parse(url));
 
@@ -83,8 +84,12 @@ class _TeacherDashboardScreenBodyState extends State<TeacherDashboardScreenBody>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: kWhite),
         backgroundColor: kPrimaryColor,
-        title: const Text("Tableau de bord", style: TextStyle(color: kWhite),),
+        title: const Text(
+          "Tableau de bord",
+          style: TextStyle(color: kWhite),
+        ),
         elevation: 0,
         centerTitle: true,
       ),
@@ -101,14 +106,12 @@ class _TeacherDashboardScreenBodyState extends State<TeacherDashboardScreenBody>
                     fontSize: SizeConfig.screenHeight * 0.025),
               ),
             ),
-            
             SizedBox(
               height: SizeConfig.screenHeight * 0.02,
             ),
             Expanded(
-              child: ListView(
-                children: [
-                  SingleChildScrollView(
+              child: ListView(children: [
+                SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: DataTable(
                     headingRowHeight: SizeConfig.screenHeight *
@@ -123,11 +126,11 @@ class _TeacherDashboardScreenBodyState extends State<TeacherDashboardScreenBody>
                       DataColumn(label: Text('Répétiteur')),
                       DataColumn(label: Text('Appréciation')),
                     ],
-                
+
                     rows: demandes.asMap().entries.map((entry) {
                       final int index = entry.key + 1;
                       final Map<String, dynamic> demande = entry.value;
-                
+
                       final String nomEnfant = demande['enfants']['lname'];
                       final String prenomEnfant = demande['enfants']['fname'];
                       final String classe =
@@ -137,7 +140,7 @@ class _TeacherDashboardScreenBodyState extends State<TeacherDashboardScreenBody>
                       final String repetiteur =
                           demande['repetiteur']['user']['name'];
                       final String status = demande['status'];
-                
+
                       return DataRow(cells: [
                         DataCell(Text('$index')),
                         DataCell(Text(nomEnfant)),
@@ -151,12 +154,13 @@ class _TeacherDashboardScreenBodyState extends State<TeacherDashboardScreenBody>
                                 ? () async {
                                     String demandeId = demande['id'];
                                     /* var parentId = await getParentId(); */
-                
+
                                     // Afficher l'ID dans la console
-                                    print('ID de la demande cliquée : $demandeId');
-                
+                                    print(
+                                        'ID de la demande cliquée : $demandeId');
+
                                     /* print('ID du parent : $parentId'); */
-                
+
                                     showDialog(
                                         context: context,
                                         builder: (context) {
@@ -166,18 +170,21 @@ class _TeacherDashboardScreenBodyState extends State<TeacherDashboardScreenBody>
                                               child: Container(
                                                   width: double.infinity,
                                                   height:
-                                                      SizeConfig.screenHeight * 0.6,
+                                                      SizeConfig.screenHeight *
+                                                          0.38,
                                                   decoration: BoxDecoration(
                                                     color: kWhite,
                                                     borderRadius:
-                                                        BorderRadius.circular(12),
+                                                        BorderRadius.circular(
+                                                            12),
                                                   ),
                                                   padding:
                                                       const EdgeInsets.fromLTRB(
                                                           20, 50, 20, 20),
                                                   child: Form(
                                                       key: _formKey,
-                                                      child: SingleChildScrollView(
+                                                      child:
+                                                          SingleChildScrollView(
                                                         child: Column(
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment
@@ -186,7 +193,8 @@ class _TeacherDashboardScreenBodyState extends State<TeacherDashboardScreenBody>
                                                             const Text(
                                                               "Appréciation",
                                                               style: TextStyle(
-                                                                  fontSize: 25.0,
+                                                                  fontSize:
+                                                                      25.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold),
@@ -194,11 +202,12 @@ class _TeacherDashboardScreenBodyState extends State<TeacherDashboardScreenBody>
                                                             SizedBox(
                                                               height: SizeConfig
                                                                       .screenHeight *
-                                                                  0.04,
+                                                                  0.03,
                                                             ),
                                                             AppInputField(
+                                                              maxLines: 2,
                                                               title:
-                                                                  "Appréciation sur l'enfant",
+                                                                  "Observations",
                                                               controller:
                                                                   _appreciationController,
                                                               keyboardType:
@@ -208,34 +217,7 @@ class _TeacherDashboardScreenBodyState extends State<TeacherDashboardScreenBody>
                                                             SizedBox(
                                                               height: SizeConfig
                                                                       .screenHeight *
-                                                                  0.02,
-                                                            ),
-                                                            AppInputField(
-                                                              title:
-                                                                  "Presence au poste",
-                                                              controller:
-                                                                  _dateController,
-                                                              suffixIcon:
-                                                                  const Icon(Icons
-                                                                      .calendar_today),
-                                                              onTap: () {
-                                                                _selectDate();
-                                                              },
-                                                            ),
-                                                            SizedBox(
-                                                              height: SizeConfig
-                                                                      .screenHeight *
-                                                                  0.02,
-                                                            ),
-                                                            AppInputField(
-                                                              title: "Observation",
-                                                              controller: _messageController,
-                                                              maxLines: 4,
-                                                            ),
-                                                            SizedBox(
-                                                              height: SizeConfig
-                                                                      .screenHeight *
-                                                                  0.04,
+                                                                  0.025,
                                                             ),
                                                             Row(
                                                               mainAxisAlignment:
@@ -243,10 +225,12 @@ class _TeacherDashboardScreenBodyState extends State<TeacherDashboardScreenBody>
                                                                       .end,
                                                               children: [
                                                                 AppFilledButton(
-                                                                  text: "Annuler",
-                                                                  color: Colors.red,
-                                                                  onPressed: () {
-                                                                    dispose();
+                                                                  text:
+                                                                      "Fermer",
+                                                                  color: Colors
+                                                                      .red,
+                                                                  onPressed:
+                                                                      () {
                                                                     Navigator.pop(
                                                                         context);
                                                                   },
@@ -258,10 +242,9 @@ class _TeacherDashboardScreenBodyState extends State<TeacherDashboardScreenBody>
                                                                 ),
                                                                 Consumer<
                                                                         TeacherPostAppreciationProvider>(
-                                                                    builder:
-                                                                        (context,
-                                                                            snapshot,
-                                                                            child) {
+                                                                    builder: (context,
+                                                                        snapshot,
+                                                                        child) {
                                                                   WidgetsBinding
                                                                       .instance
                                                                       .addPostFrameCallback(
@@ -270,9 +253,8 @@ class _TeacherDashboardScreenBodyState extends State<TeacherDashboardScreenBody>
                                                                             .resMessage !=
                                                                         '') {
                                                                       showMessage(
-                                                                          message:
-                                                                              snapshot
-                                                                                  .resMessage,
+                                                                          message: snapshot
+                                                                              .resMessage,
                                                                           context:
                                                                               context);
                                                                       snapshot
@@ -280,7 +262,8 @@ class _TeacherDashboardScreenBodyState extends State<TeacherDashboardScreenBody>
                                                                     }
                                                                   });
                                                                   return AppFilledButton(
-                                                                    text: "Envoyer",
+                                                                    text:
+                                                                        "Envoyer",
                                                                     color: Colors
                                                                         .green,
                                                                     onPressed:
@@ -292,9 +275,8 @@ class _TeacherDashboardScreenBodyState extends State<TeacherDashboardScreenBody>
                                                                             .currentState!
                                                                             .save();
                                                                         final teacherId =
-                                                                            GetStorage()
-                                                                                .read("teacherId");
-                
+                                                                            GetStorage().read("teacherId");
+
                                                                         snapshot
                                                                             .sendTeacherAppreciation(
                                                                           demandeId:
@@ -304,41 +286,28 @@ class _TeacherDashboardScreenBodyState extends State<TeacherDashboardScreenBody>
                                                                           appreciation_repetiteur: _appreciationController
                                                                               .text
                                                                               .trim(),
-                                                                          date: _dateController
-                                                                              .text
-                                                                              .trim(),
-                                                                          message: _messageController
-                                                                              .text
-                                                                              .trim(),
                                                                           context:
                                                                               context,
                                                                         );
+                                                                        Navigator.of(context)
+                                                                            .pop();
                                                                         dispose();
                                                                         showMessage(
                                                                           message:
-                                                                              'Opération réussie ! ',
+                                                                              'Appréciation envoyée ! ',
                                                                           backgroundColor:
-                                                                              Colors
-                                                                                  .green,
+                                                                              Colors.green,
                                                                           context:
                                                                               context,
                                                                         );
-                                                                        Navigator.of(
-                                                                                context)
-                                                                            .pop();
-                                                                      } else if (_appreciationController.text.isEmpty ||
-                                                                          _dateController
-                                                                              .text
-                                                                              .isEmpty ||
-                                                                          _messageController
-                                                                              .text
-                                                                              .isEmpty) {
+                                                                      } else if (_appreciationController
+                                                                          .text
+                                                                          .isEmpty) {
                                                                         showMessage(
                                                                           message:
-                                                                              'Tout les champs sont obligatoires',
+                                                                              'Le champs est obligatoire',
                                                                           backgroundColor:
-                                                                              Colors
-                                                                                  .red,
+                                                                              Colors.red,
                                                                           context:
                                                                               context,
                                                                         );
@@ -348,84 +317,6 @@ class _TeacherDashboardScreenBodyState extends State<TeacherDashboardScreenBody>
                                                                 }),
                                                               ],
                                                             )
-                                                            /* Consumer<
-                                                                          ParentPostAppreciationProvider>(
-                                                                      builder: (context,
-                                                                          postAppreciation,
-                                                                          child) {
-                                                                    WidgetsBinding
-                                                                        .instance
-                                                                        .addPostFrameCallback(
-                                                                            (_) {
-                                                                      if (postAppreciation
-                                                                              .resMessage !=
-                                                                          '') {
-                                                                        showMessage(
-                                                                            message:
-                                                                                postAppreciation
-                                                                                    .resMessage,
-                                                                            context:
-                                                                                context);
-                                                                        postAppreciation
-                                                                            .clear();
-                                                                      }
-                                                                    });
-                                                                    return AppFilledButton(
-                                                                      text:
-                                                                          "Envoyer",
-                                                                      color: Colors
-                                                                          .green,
-                                                                      onPressed:
-                                                                          () async {
-                                                                        if (_formKey
-                                                                            .currentState!
-                                                                            .validate()) {
-                                                                          _formKey
-                                                                              .currentState!
-                                                                              .save();
-                
-                                                                          postAppreciation
-                                                                              .sendAppreciation(
-                                                                            demandeId:
-                                                                                demandeId,
-                                                                            parentId:
-                                                                                parentId,
-                                                                            objet: _objetController
-                                                                                .text
-                                                                                .trim(),
-                                                                            appreciation_parents: _appreciationController
-                                                                                .text
-                                                                                .trim(),
-                                                                            context:
-                                                                                context,
-                                                                          );
-                                                                          dispose();
-                                                                          showMessage(
-                                                                            message:
-                                                                                'Opération réussie ! ',
-                                                                            backgroundColor:
-                                                                                Colors.green,
-                                                                            context:
-                                                                                context,
-                                                                          );
-                                                                          Navigator.of(
-                                                                                  context)
-                                                                              .pop();
-                                                                        } else if (_appreciationController
-                                                                            .text
-                                                                            .isEmpty) {
-                                                                          showMessage(
-                                                                            message:
-                                                                                'Le champ appreciation est obligatoire',
-                                                                            backgroundColor:
-                                                                                Colors.red,
-                                                                            context:
-                                                                                context,
-                                                                          );
-                                                                        }
-                                                                      },
-                                                                    );
-                                                                  }) */
                                                           ],
                                                         ),
                                                       ))));
@@ -445,68 +336,10 @@ class _TeacherDashboardScreenBodyState extends State<TeacherDashboardScreenBody>
                         ),
                       ]);
                     }).toList(),
-                    /* rows: demoStudent.asMap().entries.map((entry) {
-                      final int index = entry.key + 1;
-                      final Student student = entry.value;
-                
-                      return DataRow(cells: [
-                        DataCell(Text('$index')),
-                        DataCell(Text(student.lastname)),
-                        DataCell(Text(student.firstname)),
-                        DataCell(Text(student.studentClass)),
-                        DataCell(Text(student.course)),
-                        DataCell(Text(student.teacher)),
-                        DataCell(
-                            TextButton(
-                              onPressed: () {
-                                // Action à effectuer lors du clic sur le bouton d'appréciation
-                              },
-                              child: Text(
-                                "Appréciation",
-                                style: TextStyle(
-                                  fontSize: SizeConfig.screenHeight * 0.02,
-                                  color: kPrimaryColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                      ]);
-                    }).toList(), */
                   ),
                 ),
-                ]
-              ),
+              ]),
             ),
-
-            /* Expanded(
-              child: ListView.builder(
-                itemCount: demoStudent.length,
-                itemBuilder: (context, index) =>
-                    SingleStudentCard(student: demoStudent[index]),
-              ),
-            ), */
-
-            /* const Padding(
-              padding: EdgeInsets.only(top: 15, left: 10),
-              child: Text(
-                "Ecoles Partenaires",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
-            ),
-            SizedBox(
-              height: SizeConfig.screenHeight * 0.02,
-            ),
-              //      const PatnerSchoolScreen(),
-            Padding(
-              padding: const EdgeInsets.only(top: 18.0),
-              child: Center(child: SearchTeacherField()),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 15, left: 15),
-              child: Text("Quelques Répétiteurs",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-            ), */
-            // const TeacherScreen(),
           ],
         ),
       ),

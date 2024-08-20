@@ -27,7 +27,7 @@ class TeacherSentMessageProvider extends ChangeNotifier {
 
   Future<String?> getUserIdByName(String name) async {
   final usersUrl = Uri.parse(
-      'http://apirepetiteur.sevenservicesplus.com/api/users?name=$name');
+      'http://apirepetiteur.wadounnou.com/api/users?name=$name');
 
   var client = http.Client();
 
@@ -73,7 +73,7 @@ class TeacherSentMessageProvider extends ChangeNotifier {
 
     if (adminUserId != null) {
       final notificationUrl = Uri.parse(
-          'http://apirepetiteur.sevenservicesplus.com/api/notifications');
+          'http://apirepetiteur.wadounnou.com/api/notifications');
 
       var client = http.Client();
 
@@ -244,7 +244,7 @@ class TeacherSentMessageProvider extends ChangeNotifier {
 
   Future<String?> getUserIdByName(String name) async {
     final usersUrl = Uri.parse(
-        'http://apirepetiteur.sevenservicesplus.com/api/users?name=$name');
+        'http://apirepetiteur.wadounnou.com/api/users?name=$name');
 
     try {
       var response = await http.get(usersUrl);
@@ -283,7 +283,7 @@ class TeacherSentMessageProvider extends ChangeNotifier {
 
     if (adminUserId != null) {
       final notificationUrl = Uri.parse(
-          'http://apirepetiteur.sevenservicesplus.com/api/notifications');
+          'http://apirepetiteur.wadounnou.com/api/notifications');
 
       try {
         var notificationRequest = await http.post(

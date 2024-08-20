@@ -26,7 +26,7 @@ class _TeacherAdminResponseBodyState extends State<TeacherAdminResponseBody> {
     final teacherUserId = GetStorage().read("teacherUserId");
 
     final messagesUrl =
-        'http://apirepetiteur.sevenservicesplus.com/api/messages?user_id=$teacherUserId';
+        'http://apirepetiteur.wadounnou.com/api/messages?user_id=$teacherUserId';
 
     final response = await http.get(Uri.parse(messagesUrl));
 
@@ -55,6 +55,7 @@ class _TeacherAdminResponseBodyState extends State<TeacherAdminResponseBody> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: kWhite),
         backgroundColor: kPrimaryColor,
         title: const Text("Réponse de l'administrateur", style: TextStyle(color: kWhite),),
         centerTitle: true,
@@ -105,8 +106,8 @@ class _TeacherAdminResponseBodyState extends State<TeacherAdminResponseBody> {
                     return DataRow(cells: [
                       /* DataCell(Text('$index')), */
                       DataCell(Text(formatDate(messageDate))),
-                      DataCell(Text(userMessage, maxLines: 5, )),
-                      DataCell(Text(adminResponse, maxLines: 5,)),
+                      DataCell(Text(userMessage, maxLines: 10, )),
+                      DataCell(Text(adminResponse, maxLines: 10,)),
                     ]);
                   }).toList()),
             )

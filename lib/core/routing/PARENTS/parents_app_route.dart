@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_PARENTS/modules/screens/appreciation/appreciation_screen.dart';
+import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_PARENTS/modules/screens/appreciation/pour_repetiteur/list_appreciation_pour_repetiteur.dart';
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_PARENTS/modules/screens/authentication/forgot_password/parent_forgot_password_screen.dart';
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_PARENTS/modules/screens/authentication/login/login_screen.dart';
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_PARENTS/modules/screens/authentication/register/register_screen.dart';
@@ -53,6 +53,7 @@ final Map<String, WidgetBuilder> parents_routs = {
   /* MoreDetailsPage.routeName: (context) => MoreDetailsPage(), */
   TeacherQuickAskScreen.routeName: (context) => const TeacherQuickAskScreen(),
   AdminResponseScreen.routeName: (context) => const AdminResponseScreen(),
+  AppreciationPourRepetiteur.routeName: (context) => const AppreciationPourRepetiteur()
 
 //---------------------------------------------------------------------------------------------------
 

@@ -19,11 +19,12 @@ class PostDemandProvider extends ChangeNotifier {
 
   // Getter
   bool get isLoading => _isLoading;
+
   String get resMessage => _resMessage;
 
   Future<String?> getUserIdByName(String name) async {
-    final usersUrl = Uri.parse(
-        'http://apirepetiteur.sevenservicesplus.com/api/users?name=$name');
+    final usersUrl =
+        Uri.parse('http://apirepetiteur.wadounnou.com/api/users?name=$name');
 
     var client = http.Client();
 
@@ -68,8 +69,8 @@ class PostDemandProvider extends ChangeNotifier {
     final parentToken = GetStorage().read("token");
 
     if (adminUserId != null) {
-      final notificationUrl = Uri.parse(
-          'http://apirepetiteur.sevenservicesplus.com/api/notifications');
+      final notificationUrl =
+          Uri.parse('http://apirepetiteur.wadounnou.com/api/notifications');
 
       var client = http.Client();
 
@@ -106,11 +107,11 @@ class PostDemandProvider extends ChangeNotifier {
     }
   }
 
-  void sendDemand({
+  Future<void> sendDemand({
     required String tarification_id,
     required String enfants_id,
     required String repetiteur_id,
-    String? description,
+    required String description,
     BuildContext? context,
   }) async {
     _isLoading = true;
@@ -176,6 +177,91 @@ class PostDemandProvider extends ChangeNotifier {
         print(res);
         _isLoading = false;
         notifyListeners();
+      }
+    } on SocketException catch (_) {
+      _isLoading = false;
+      _resMessage = "Aucune Connexion Internet";
+      notifyListeners();
+    } catch (e) {
+      _isLoading = false;
+      _resMessage = "Rééssayez encore";
+      notifyListeners();
+
+      print("::::: $e");
+    }
+  }
+
+  void parentAddChilds({
+    required String lname,
+    required String fname,
+    required String phone,
+    required String sexe,
+    required String adresse,
+    required String parents_id,
+    required String tarification_id,
+    required String repetiteur_id,
+    required String description,
+    BuildContext? context,
+  }) async {
+    _isLoading = true;
+    notifyListeners();
+
+    var addChildsUrl = Uri.https(requestBaseUrl, '/api/enfants');
+
+    var client = http.Client();
+
+    final body = jsonEncode({
+      "lname": lname,
+      "fname": fname,
+      "phone": phone,
+      "adresse": adresse,
+      "parents_id": parents_id,
+      "sexe": sexe,
+    });
+
+    print(body);
+
+    try {
+      final token = GetStorage().read('token');
+      if (token == null) {
+        _isLoading = false;
+        _resMessage = "Token non trouvé";
+        notifyListeners();
+        return;
+      }
+      var response = await client.post(
+        addChildsUrl,
+        body: body,
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json'
+        },
+      );
+      print(response.statusCode);
+      print(response.body);
+
+      if (response.statusCode == 201) {
+        final res = jsonDecode(response.body);
+        String enfantId = res['data']['id'].toString();
+
+        await sendDemand(
+            enfants_id: enfantId,
+            tarification_id: tarification_id,
+            repetiteur_id: repetiteur_id,
+            description: description,
+            context: context);
+
+        _isLoading = false;
+        if (res.containsKey('success') && res['success'] == true) {
+          _resMessage = "Votre enfant a été ajouté avec succès !";
+
+          notifyListeners();
+        } else if (res.containsKey('message')) {
+          _resMessage = res['message'];
+          print(res);
+          _isLoading = false;
+          notifyListeners();
+        }
       }
     } on SocketException catch (_) {
       _isLoading = false;

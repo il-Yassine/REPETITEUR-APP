@@ -78,7 +78,7 @@ class _TeacherAddingInformationsBodyState
   Future<List<Communes>> fetchAllCommunes() async {
     try {
       const allCommunesUrl =
-          'http://apirepetiteur.sevenservicesplus.com/api/communes';
+          'http://apirepetiteur.wadounnou.com/api/communes';
       final response = await http.get(Uri.parse(allCommunesUrl));
 
       final body = jsonDecode(response.body);
@@ -239,7 +239,9 @@ class _TeacherAddingInformationsBodyState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Completez vos informations"),
+        iconTheme: const IconThemeData(color: kWhite),
+        backgroundColor: kPrimaryColor,
+        title: const Text("Completez vos informations", style: TextStyle(color: kWhite)),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -328,7 +330,7 @@ class _TeacherAddingInformationsBodyState
                   _buildPicturePathFormField(),
                   AppFilledButton(
                     text: "Choisir un fichier",
-                    color: Colors.deepPurpleAccent,
+                    color: kPrimaryColor,
                     onPressed: () async {
                       _openImagePicker();
                     },
@@ -339,7 +341,7 @@ class _TeacherAddingInformationsBodyState
                   _buildDiplomaPathFormField(),
                   AppFilledButton(
                     text: "Choisir un fichier",
-                    color: Colors.deepPurpleAccent,
+                    color: kPrimaryColor,
                     onPressed: () {
                       _openDiplomaPicker();
                     },
@@ -350,7 +352,7 @@ class _TeacherAddingInformationsBodyState
                   _buildCriminalRecordPathFormField(),
                   AppFilledButton(
                     text: "Choisir un fichier",
-                    color: Colors.deepPurpleAccent,
+                    color: kPrimaryColor,
                     onPressed: () {
                       _openCriminalRecordPicker();
                     },
@@ -361,7 +363,7 @@ class _TeacherAddingInformationsBodyState
                   _buildHomeCertificatePathFormField(),
                   AppFilledButton(
                     text: "Choisir un fichier",
-                    color: Colors.deepPurpleAccent,
+                    color: kPrimaryColor,
                     onPressed: () {
                       _openHomeCertificatePicker();
                     },
@@ -372,7 +374,7 @@ class _TeacherAddingInformationsBodyState
                   _buildIDPathFormField(),
                   AppFilledButton(
                     text: "Choisir un fichier",
-                    color: Colors.deepPurpleAccent,
+                    color: kPrimaryColor,
                     onPressed: () {
                       _openIdentityPicker();
                     },
@@ -464,7 +466,7 @@ class _TeacherAddingInformationsBodyState
                           List<Teachers> teachersList = await TeacherList
                               .getAllTeacherWithoutEvaluation();
                           int matriculeNumber = teachersList.length + 1;
-                          String matricule = "M0000$matriculeNumber";
+                          String matricule = "E0000$matriculeNumber";
 
                           debugPrint(matricule);
                           debugPrint("nombre de repetiteur: $matriculeNumber");

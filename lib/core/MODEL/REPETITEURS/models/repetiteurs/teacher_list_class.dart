@@ -10,7 +10,7 @@ class TeacherList {
 
   static Future<List<Teachers>> getAllTeacher({String? communeName, String? cycle, String? disponibilite}) async {
 
-    const allTeachersUrl = 'http://apirepetiteur.sevenservicesplus.com/api/repetiteurs?traitementDossiers=Validé';
+    const allTeachersUrl = 'http://apirepetiteur.wadounnou.com/api/repetiteurs?traitementDossiers=Validé';
 
     final response = await http.get(Uri.parse(allTeachersUrl));
 
@@ -22,7 +22,7 @@ class TeacherList {
 
   static Future<List<Teachers>> getAllTeacherWithoutEvaluation({String? communeName, String? cycle, String? disponibilite}) async {
 
-    const allTeachersUrl = 'http://apirepetiteur.sevenservicesplus.com/api/repetiteurs';
+    const allTeachersUrl = 'http://apirepetiteur.wadounnou.com/api/repetiteurs';
 
     final response = await http.get(Uri.parse(allTeachersUrl));
 
@@ -35,7 +35,7 @@ class TeacherList {
   static Future<List<Teachers>> getTeachersByCommune({String? communeName, String? cycle, String? disponibilite}) async {
     try {
       // Utilisez votre logique pour effectuer la requête réseau avec la route spécifique
-      final response = await http.get(Uri.parse('http://apirepetiteur.sevenservicesplus.com/api/repetiteurs?name=$communeName'));
+      final response = await http.get(Uri.parse('http://apirepetiteur.wadounnou.com/api/repetiteurs?name=$communeName'));
 
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body)['data'];
@@ -50,7 +50,7 @@ class TeacherList {
   }
 
   static Future<List<Communes>> getAllCommunes() async {
-    const allCommunesUrl = 'http://apirepetiteur.sevenservicesplus.com/api/communes';
+    const allCommunesUrl = 'http://apirepetiteur.wadounnou.com/api/communes';
 
     final response = await http.get(Uri.parse(allCommunesUrl));
 
@@ -60,7 +60,7 @@ class TeacherList {
   }
 
   static Future<List<Classes>> getAllClasses() async {
-    const allClassesUrl = 'http://apirepetiteur.sevenservicesplus.com/api/classes';
+    const allClassesUrl = 'http://apirepetiteur.wadounnou.com/api/classes';
 
     final response = await http.get(Uri.parse(allClassesUrl));
 
@@ -70,7 +70,7 @@ class TeacherList {
   }
 
   static Future<List<Matieres>> getAllMatieres() async {
-    const allMatieresUrl = 'http://apirepetiteur.sevenservicesplus.com/api/matieres';
+    const allMatieresUrl = 'http://apirepetiteur.wadounnou.com/api/matieres';
 
     final response = await http.get(Uri.parse(allMatieresUrl));
 

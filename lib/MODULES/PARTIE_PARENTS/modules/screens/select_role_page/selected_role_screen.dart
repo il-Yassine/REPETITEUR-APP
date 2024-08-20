@@ -10,6 +10,8 @@ import 'package:repetiteur_mobile_app_definitive/core/MODEL/role/role_list_class
 import 'package:repetiteur_mobile_app_definitive/core/utils/size_config.dart';
 import 'package:repetiteur_mobile_app_definitive/provider/role_provider.dart';
 
+import '../../../../../core/constants/REPETITEURS/constants.dart';
+
 class SelectedRoleScreen extends StatefulWidget {
   const SelectedRoleScreen({super.key});
 
@@ -204,8 +206,8 @@ class _SelectedRoleScreenState extends State<SelectedRoleScreen> {
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: selectedRole == 'Repetiteur'
-                                ? Colors.purple
-                                : Colors.blue,
+                                ? kPrimaryColor
+                                : Colors.orange,
                           ),
                           child: Text(
                             selectedRole == 'Repetiteur'

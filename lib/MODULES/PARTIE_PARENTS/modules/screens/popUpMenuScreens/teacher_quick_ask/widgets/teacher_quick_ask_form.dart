@@ -60,7 +60,7 @@ class _TeacherQuickAskFormState extends State<TeacherQuickAskForm> {
 
   Future<void> fetchTarification() async {
     const apiUrl =
-        "http://apirepetiteur.sevenservicesplus.com/api/tarifications";
+        "http://apirepetiteur.wadounnou.com/api/tarifications";
     try {
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -274,7 +274,7 @@ class _TeacherQuickAskFormState extends State<TeacherQuickAskForm> {
                       controller: _matriculeController,
                       decoration: const InputDecoration(
                         isDense: true,
-                        hintText: 'M000001',
+                        hintText: 'E000001',
                         hintStyle: TextStyle(
                             color: kcLightGreyColor,
                             fontWeight: FontWeight.normal,

@@ -10,8 +10,10 @@ import 'package:line_icons/line_icons.dart';
 import 'package:http/http.dart' as http;
 import 'package:badges/badges.dart' as badges;
 import 'package:provider/provider.dart';
+import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_REPETITEURS/modules/screens/all_observations/all_observations_screen.dart';
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_REPETITEURS/modules/screens/bibliotheque/teacher_bibliotheque_screen.dart';
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_REPETITEURS/modules/screens/dashboard/teacher_dashboard_screen.dart';
+import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_REPETITEURS/modules/screens/presence_au_poste/presence_poste_screen.dart';
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_REPETITEURS/modules/screens/response_admin/response_admin_screen.dart';
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_REPETITEURS/modules/screens/teacher_message_us/teacher_message_us_screen.dart';
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_REPETITEURS/modules/screens/widgets/CustomListTileWidget.dart';
@@ -48,7 +50,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
 
   Future<bool> logout(String token)async{
     try{
-      String logoutUrl = "http://apirepetiteur.sevenservicesplus.com/api/logout";
+      String logoutUrl = "http://apirepetiteur.wadounnou.com/api/logout";
       final request = await http.get(Uri.parse(logoutUrl),
       headers:<String, String>{'Content-Type': 'application/json',
       'Authorization': 'Bearer $token'
@@ -72,7 +74,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     final teacherUserId = GetStorage().read("teacherUserId");
 
     final url =
-        "http://apirepetiteur.sevenservicesplus.com/api/demandes?user_id=$teacherUserId";
+        "http://apirepetiteur.wadounnou.com/api/demandes?user_id=$teacherUserId";
 
     final response = await http.get(Uri.parse(url));
 
@@ -92,7 +94,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     final teacherUserId = GetStorage().read("teacherUserId");
 
     final notificationsUrl =
-        'http://apirepetiteur.sevenservicesplus.com/api/notifications?user_id=$teacherUserId';
+        'http://apirepetiteur.wadounnou.com/api/notifications?user_id=$teacherUserId';
 
     final response = await http.get(Uri.parse(notificationsUrl));
 
@@ -116,7 +118,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
   Future<void> markNotificationsAsRead() async {
     for (String notificationId in unreadNotificationIds) {
       final notificationsUrl =
-          'http://apirepetiteur.sevenservicesplus.com/api/notifications/$notificationId';
+          'http://apirepetiteur.wadounnou.com/api/notifications/$notificationId';
 
       final response = await http.put(
         Uri.parse(notificationsUrl),
@@ -175,6 +177,19 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               },
             ),
           if (token.isNotEmpty)
+            GestureDetector(
+              child: const CustomListTileWidget(
+                text: 'Présence au poste',
+                iconData: LineIcons.addressCard,
+                iconColor: kPrimaryColor,
+              ),
+              onTap: () {
+               // Navigator.pop(context);
+                Navigator.pushNamed(
+                    context, PresenceAuPosteScreen.routeName);
+              },
+            ),
+          if (token.isNotEmpty)
             badges.Badge(
               position: BadgePosition.topEnd(top: 3, end: 100),
               badgeContent: Text(unreadRequests.toString(), style: TextStyle(color: Colors.white),),
@@ -191,6 +206,17 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     Navigator.pushNamed(
                         context, TeacherDashboardScreen.routeName);
                   }),
+            ),
+          if (token.isNotEmpty)
+            GestureDetector(
+              child: const CustomListTileWidget(
+                text: 'Les Observations',
+                iconData: LineIcons.list,
+                iconColor: kPrimaryColor,
+              ),
+              onTap: () {
+               Navigator.push(context, MaterialPageRoute(builder: (context) => AllObservations()));
+              },
             ),
           if (token.isNotEmpty)
             GestureDetector(

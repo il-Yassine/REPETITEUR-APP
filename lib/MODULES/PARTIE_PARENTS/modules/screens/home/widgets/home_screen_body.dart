@@ -68,6 +68,7 @@ class _ParentHomeScreenBodyState extends State<ParentHomeScreenBody> {
     return Scaffold(
       backgroundColor: Colors.white30,
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: kWhite),
         title: const Text("Accueil", style: TextStyle(color: kWhite),),
         backgroundColor: kPrimaryColor,
         centerTitle: true,
@@ -78,9 +79,9 @@ class _ParentHomeScreenBodyState extends State<ParentHomeScreenBody> {
             PopupMenuButton<String>(
               iconSize: 25,
               onSelected: (String choice) {
-                if (choice == 'Ajouter un enfant') {
+                /*if (choice == 'Ajouter un enfant') {
                   Navigator.pushNamed(context, AddChildScreen.routeName);
-                }
+                }*/
                 if (choice == 'Faire une demande') {
                   Navigator.pushNamed(context, AddTeacherScreen.routeName);
                 }
@@ -101,7 +102,7 @@ class _ParentHomeScreenBodyState extends State<ParentHomeScreenBody> {
               },
               itemBuilder: (BuildContext context) {
                 return [
-                  'Ajouter un enfant',
+                  /*'Ajouter un enfant',*/
                   'Faire une demande',
                   'Liste de mes demandes',
                   'Mes paiements',

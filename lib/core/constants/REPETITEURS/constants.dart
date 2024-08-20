@@ -4,7 +4,7 @@ import 'package:repetiteur_mobile_app_definitive/core/utils/size_config.dart';
 
 // import 'package:shop_app/size_config.dart';
 
-const kPrimaryColor = Colors.deepPurpleAccent ;
+const kPrimaryColor = Color.fromRGBO(162, 127, 85, 1) ;
 const kOnBoardingBackgroundColor = Color(0xFFFF9D61);
 const kStandartDeepGreenColor = Color.fromRGBO(106, 173, 96, 1);
 const kLightGreenColor = Color.fromRGBO(211, 229, 207, 1);

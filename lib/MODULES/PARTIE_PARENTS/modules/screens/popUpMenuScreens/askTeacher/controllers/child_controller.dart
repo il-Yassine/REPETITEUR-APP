@@ -9,7 +9,7 @@ class ChildController extends GetxController{
 
   Future<List<Child>> getChildInfo(String user_id) async{
     try{
-    final String apiUrl = "http://apirepetiteur.sevenservicesplus.com/api/enfants?user_id=$user_id";
+    final String apiUrl = "http://apirepetiteur.wadounnou.com/api/enfants?user_id=$user_id";
     Map<String, String> params = {'user_id': user_id};
     final response = await http.get(Uri.parse(apiUrl),
     headers: params);

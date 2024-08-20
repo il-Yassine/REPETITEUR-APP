@@ -20,7 +20,7 @@ class SelectedRoleScreenBackground extends StatelessWidget {
                 image: AssetImage('assets/images/repetiteur6.jpg'),
                 fit: BoxFit.cover,
                 colorFilter:
-                ColorFilter.mode(Colors.blue, BlendMode.darken))),
+                ColorFilter.mode(Colors.orange, BlendMode.softLight))),
       ),
     );
   }
