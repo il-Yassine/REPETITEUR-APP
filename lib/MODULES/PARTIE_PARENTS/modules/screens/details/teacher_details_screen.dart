@@ -83,11 +83,13 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
             'Authorization': 'Bearer $userToken'
           });
       if (response.statusCode == 200 || response.statusCode == 201) {
+         print('status code : ${response.statusCode}');
         Get.snackbar("Succès", "Évaluation envoyée avec succès",
             backgroundColor: kWhite, colorText: Colors.green);
       } else {
+        print('body: ${response.body}');
         print('Erreur d\'envoi: ${response.statusCode}');
-        Get.snackbar('Erreur', 'Échec de l\'envoi de l\'évaluation');
+        Get.snackbar('Erreur', 'Vous avez déjà évaluer ce encadreur',backgroundColor: kWhite, colorText: Colors.red);
       }
     } catch (e) {
       print('Erreur: $e');
