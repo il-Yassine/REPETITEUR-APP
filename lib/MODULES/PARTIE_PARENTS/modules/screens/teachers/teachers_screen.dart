@@ -58,7 +58,7 @@ class _ParentTeachersScreenState extends State<ParentTeachersScreen> {
       backgroundColor: Colors.white30,
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
-        title: const Text("Nos Répétiteurs", style: TextStyle(color: kWhite),),
+        title: const Text("Nos Encadeurs", style: TextStyle(color: kWhite),),
         centerTitle: true,
         elevation: 0,
         automaticallyImplyLeading: false,

@@ -127,7 +127,7 @@ class _ParentHomeScreenBodyState extends State<ParentHomeScreenBody> {
               ),
               const Padding(
                 padding: EdgeInsets.only(top: 15, left: 15),
-                child: Text("Quelques Répétiteurs",
+                child: Text("Quelques Encadreurs",
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
               ),

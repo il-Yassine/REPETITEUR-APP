@@ -44,7 +44,7 @@ class SingleTeacherCardWidget extends StatelessWidget {
                       backgroundImage: teachers.profilImageUrl.toString() != 'null' ? NetworkImage(
                         teachers.profilImageUrl.toString(),
                       ) : const NetworkImage('https://apibackout.s3.amazonaws.com/images/1713947852vectoriel.jpg'),
-                      radius: 85,
+                      radius: 80,
                     ),
                   ),
                 ),

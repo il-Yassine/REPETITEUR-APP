@@ -94,7 +94,7 @@ class _ParentHomeScreenState extends State<ParentHomeScreen> {
                   ),
                   GButton(
                     icon: CupertinoIcons.person_2,
-                    text: 'Nos Répétiteurs',
+                    text: 'Nos Encadreurs',
                   ),
                   /*GButton(
                     icon: LineIcons.search,
