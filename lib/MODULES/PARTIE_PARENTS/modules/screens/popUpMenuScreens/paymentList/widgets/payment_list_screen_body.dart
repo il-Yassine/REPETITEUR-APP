@@ -38,7 +38,7 @@ class _PaymentListScreenBodyState extends State<PaymentListScreenBody> {
   Future<void> fetchData() async {
     final userId = GetStorage().read("userId");
     final url =
-        "http://apirepetiteur.wadounnou.com/api/payements?user_id=$userId";
+        "http://api-mon-encadreur.com/api/payements?user_id=$userId";
 
     final response = await http.get(Uri.parse(url));
 

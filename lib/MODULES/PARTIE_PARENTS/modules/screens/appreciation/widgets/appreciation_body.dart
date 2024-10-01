@@ -54,7 +54,7 @@ class _AppreciationBodyState extends State<AppreciationBody> {
   Future<void> fetchData() async {
     final userId = GetStorage().read("userId");
     final url =
-        "http://apirepetiteur.wadounnou.com/api/postes?user_id=$userId";
+        "http://api-mon-encadreur.com/api/postes?user_id=$userId";
 
     final response = await http.get(Uri.parse(url));
 

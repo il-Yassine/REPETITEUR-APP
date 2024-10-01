@@ -23,7 +23,7 @@ class ParentSentMessageProvider extends ChangeNotifier {
 
   Future<String?> getUserIdByName(String name) async {
     final usersUrl = Uri.parse(
-        'http://apirepetiteur.wadounnou.com/api/users?name=$name');
+        'http://www.api-mon-encadreur.com/api/users?name=$name');
 
     try {
       var response = await http.get(usersUrl);

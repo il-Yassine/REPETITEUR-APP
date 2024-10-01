@@ -46,7 +46,7 @@ class _TeacherHomeScreenBodyState extends State<TeacherHomeScreenBody> {
       final teacherUserId = GetStorage().read("teacherUserId");
 
       const allClassesUrl =
-          'http://apirepetiteur.wadounnou.com/api/classes';
+          'http://api-mon-encadreur.com/api/classes';
 
       final response = await http.get(Uri.parse(allClassesUrl));
 
@@ -69,7 +69,7 @@ class _TeacherHomeScreenBodyState extends State<TeacherHomeScreenBody> {
   Future<List<Matieres>> fetchAllMatieres() async {
     try {
       const allMatieresUrl =
-          'http://apirepetiteur.wadounnou.com/api/matieres';
+          'http://api-mon-encadreur.com/api/matieres';
       final response = await http.get(Uri.parse(allMatieresUrl));
 
       final body = jsonDecode(response.body);

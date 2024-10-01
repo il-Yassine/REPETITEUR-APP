@@ -50,7 +50,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
 
   Future<bool> logout(String token)async{
     try{
-      String logoutUrl = "http://apirepetiteur.wadounnou.com/api/logout";
+      String logoutUrl = "http://api-mon-encadreur.com/api/logout";
       final request = await http.get(Uri.parse(logoutUrl),
       headers:<String, String>{'Content-Type': 'application/json',
       'Authorization': 'Bearer $token'
@@ -74,7 +74,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     final teacherUserId = GetStorage().read("teacherUserId");
 
     final url =
-        "http://apirepetiteur.wadounnou.com/api/demandes?user_id=$teacherUserId";
+        "http://api-mon-encadreur.com/api/demandes?user_id=$teacherUserId";
 
     final response = await http.get(Uri.parse(url));
 
@@ -94,7 +94,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     final teacherUserId = GetStorage().read("teacherUserId");
 
     final notificationsUrl =
-        'http://apirepetiteur.wadounnou.com/api/notifications?user_id=$teacherUserId';
+        'http://api-mon-encadreur.com/api/notifications?user_id=$teacherUserId';
 
     final response = await http.get(Uri.parse(notificationsUrl));
 
@@ -118,7 +118,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
   Future<void> markNotificationsAsRead() async {
     for (String notificationId in unreadNotificationIds) {
       final notificationsUrl =
-          'http://apirepetiteur.wadounnou.com/api/notifications/$notificationId';
+          'http://api-mon-encadreur.com/api/notifications/$notificationId';
 
       final response = await http.put(
         Uri.parse(notificationsUrl),

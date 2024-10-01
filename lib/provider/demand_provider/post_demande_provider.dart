@@ -24,7 +24,7 @@ class PostDemandProvider extends ChangeNotifier {
 
   Future<String?> getUserIdByName(String name) async {
     final usersUrl =
-        Uri.parse('http://apirepetiteur.wadounnou.com/api/users?name=$name');
+        Uri.parse('http://www.api-mon-encadreur.com/api/users?name=$name');
 
     var client = http.Client();
 
@@ -70,7 +70,7 @@ class PostDemandProvider extends ChangeNotifier {
 
     if (adminUserId != null) {
       final notificationUrl =
-          Uri.parse('http://apirepetiteur.wadounnou.com/api/notifications');
+          Uri.parse('http://www.api-mon-encadreur.com/api/notifications');
 
       var client = http.Client();
 

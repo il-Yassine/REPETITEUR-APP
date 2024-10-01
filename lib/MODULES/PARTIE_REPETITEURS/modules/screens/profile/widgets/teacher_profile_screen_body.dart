@@ -28,7 +28,7 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
     final teacherUserId = GetStorage().read("teacherUserId");
 
     final url =
-        "http://apirepetiteur.wadounnou.com/api/repetiteurs?user_id=$teacherUserId";
+        "http://api-mon-encadreur.com/api/repetiteurs?user_id=$teacherUserId";
 
     final response = await http.get(Uri.parse(url));
 
@@ -44,7 +44,7 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
     final teacherUserId = GetStorage().read("teacherUserId");
 
     final url =
-        "http://apirepetiteur.wadounnou.com/api/demandes?user_id=$teacherUserId";
+        "http://api-mon-encadreur.com/api/demandes?user_id=$teacherUserId";
 
     final response = await http.get(Uri.parse(url));
 

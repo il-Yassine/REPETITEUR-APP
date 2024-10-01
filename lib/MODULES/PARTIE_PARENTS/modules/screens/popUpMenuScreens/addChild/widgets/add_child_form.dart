@@ -46,7 +46,7 @@ class _AddChildFormState extends State<AddChildForm> {
 
   Future<String> getParentId() async {
   // L'URL de votre API
-  var url = Uri.parse('http://apirepetiteur.wadounnou.com/api/parents?user_id=$userId');
+  var url = Uri.parse('http://api-mon-encadreur.com/api/parents?user_id=$userId');
 
   // Récupérez le token de l'utilisateur connecté
   String token = GetStorage().read("token");

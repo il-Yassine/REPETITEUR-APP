@@ -50,7 +50,7 @@ class _AddTeacherFormState extends State<AddTeacherForm> {
 
   Future<String> getParentId() async {
     // L'URL de votre API
-    var url = Uri.parse('http://apirepetiteur.wadounnou.com/api/parents?user_id=$userId');
+    var url = Uri.parse('http://api-mon-encadreur.com/api/parents?user_id=$userId');
 
     // Récupérez le token de l'utilisateur connecté
     String token = GetStorage().read("token");
@@ -111,7 +111,7 @@ class _AddTeacherFormState extends State<AddTeacherForm> {
 
   Future<void> fetchTarification(String classe, String matiere) async {
     const apiUrl =
-        "http://apirepetiteur.wadounnou.com/api/tarifications";
+        "http://api-mon-encadreur.com/api/tarifications";
     try {
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -154,7 +154,7 @@ class _AddTeacherFormState extends State<AddTeacherForm> {
   Future<void> fetchRepetiteursMatricule(String classe, String matiere) async {
     // Remplacez l'URL avec l'API appropriée pour récupérer les répétiteurs
     const apiUrl =
-        "http://apirepetiteur.wadounnou.com/api/repetiteurmcs";
+        "http://api-mon-encadreur.com/api/repetiteurmcs";
 
     try {
       final response = await http.get(Uri.parse(apiUrl));
@@ -200,7 +200,7 @@ class _AddTeacherFormState extends State<AddTeacherForm> {
 
   Future<void> fetchRepetiteurs(String repetiteurId) async {
     const apiUrl =
-        "http://apirepetiteur.wadounnou.com/api/repetiteurmcs";
+        "http://api-mon-encadreur.com/api/repetiteurmcs";
 
     try {
       final response = await http.get(Uri.parse(apiUrl));

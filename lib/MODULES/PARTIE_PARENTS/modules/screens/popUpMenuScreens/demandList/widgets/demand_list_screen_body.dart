@@ -51,7 +51,7 @@ class _DemandListScreenBodyState extends State<DemandListScreenBody> {
   Future<String> getParentId() async {
     // L'URL de votre API
     var url =
-        Uri.parse('http://apirepetiteur.wadounnou.com/api/parents');
+        Uri.parse('http://api-mon-encadreur.com/api/parents');
 
     // Récupérez le token de l'utilisateur connecté
     String token = GetStorage().read("token");
@@ -82,7 +82,7 @@ class _DemandListScreenBodyState extends State<DemandListScreenBody> {
     final userId = GetStorage().read("userId");
 
     final url =
-        "http://apirepetiteur.wadounnou.com/api/demandes?user_id=$userId";
+        "http://api-mon-encadreur.com/api/demandes?user_id=$userId";
 
     final response = await http.get(Uri.parse(url));
 

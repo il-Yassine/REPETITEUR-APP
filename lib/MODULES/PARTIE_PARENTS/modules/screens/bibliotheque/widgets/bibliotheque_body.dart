@@ -24,7 +24,7 @@ class _BibliothequeBodyState extends State<BibliothequeBody> {
 
   Future<void> fetchEpreuvesData() async {
     const epreuvesUrl =
-        'http://apirepetiteur.wadounnou.com/api/epreuves';
+        'http://api-mon-encadreur.com/api/epreuves';
 
     final response = await http.get(Uri.parse(epreuvesUrl));
 

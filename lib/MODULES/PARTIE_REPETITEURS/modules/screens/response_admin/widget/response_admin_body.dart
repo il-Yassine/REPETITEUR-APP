@@ -26,7 +26,7 @@ class _TeacherAdminResponseBodyState extends State<TeacherAdminResponseBody> {
     final teacherUserId = GetStorage().read("teacherUserId");
 
     final messagesUrl =
-        'http://apirepetiteur.wadounnou.com/api/messages?user_id=$teacherUserId';
+        'http://api-mon-encadreur.com/api/messages?user_id=$teacherUserId';
 
     final response = await http.get(Uri.parse(messagesUrl));
 

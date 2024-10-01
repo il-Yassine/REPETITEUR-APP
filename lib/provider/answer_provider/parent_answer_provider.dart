@@ -22,8 +22,8 @@ class ParentAnswerProvider extends ChangeNotifier {
     BuildContext? context,
   }) async {
     var putAnswerUrl = Uri.parse(
-        "http://apirepetiteur.wadounnou.com/api/postes/$appreciationId");
-
+        "https://www.api-mon-encadreur.com/api/postes/$appreciationId");
+         
     String token = GetStorage().read("token");
 
     final body = {

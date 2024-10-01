@@ -45,7 +45,7 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
     try {
       final response = await http.get(
         Uri.parse(
-            'http://apirepetiteur.wadounnou.com/api/repetiteurmcs?repetiteur_id=${widget.repetiteurId}'),
+            'http://api-mon-encadreur.com/api/repetiteurmcs?repetiteur_id=${widget.repetiteurId}'),
       );
 
       print(' ::::::::::::::::::::: ${widget.repetiteurId}');
@@ -73,7 +73,7 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
     try {
       final response = await http.post(
           Uri.parse(
-              'https://apirepetiteur.wadounnou.com/api/evaluations'),
+              'https://api-mon-encadreur.com/api/evaluations'),
           body: {
             "repetiteur_id": widget.repetiteurId,
             "niveauEvaluation": rating.toString(),

@@ -61,7 +61,7 @@ class DatabaseProvider extends ChangeNotifier {
     final token = await getToken();
     if (token.isNotEmpty) {
       final profileUrl =
-          Uri.parse('http://apirepetiteur.wadounnou.com/api/users');
+          Uri.parse('http://www.api-mon-encadreur.com/api/users');
       final response = await http
           .get(profileUrl, headers: {'Authorization': 'Bearer $token'});
 

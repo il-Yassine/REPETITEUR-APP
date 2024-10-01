@@ -60,7 +60,7 @@ class _TeacherQuickAskFormState extends State<TeacherQuickAskForm> {
 
   Future<void> fetchTarification() async {
     const apiUrl =
-        "http://apirepetiteur.wadounnou.com/api/tarifications";
+        "http://api-mon-encadreur.com/api/tarifications";
     try {
       final response = await http.get(Uri.parse(apiUrl));
       if (response.statusCode == 200 || response.statusCode == 201) {

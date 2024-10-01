@@ -79,7 +79,7 @@ class _TeacherUpdatingInformationsBodyState
   Future<List<Communes>> fetchAllCommunes() async {
     try {
       const allCommunesUrl =
-          'http://apirepetiteur.wadounnou.com/api/communes';
+          'http://api-mon-encadreur.com/api/communes';
       final response = await http.get(Uri.parse(allCommunesUrl));
 
       final body = jsonDecode(response.body);

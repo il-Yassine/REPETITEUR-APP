@@ -65,7 +65,7 @@ class _TeacherDashboardScreenBodyState
     final teacherUserId = GetStorage().read("teacherUserId");
 
     final url =
-        "http://apirepetiteur.wadounnou.com/api/demandes?user_id=$teacherUserId";
+        "http://api-mon-encadreur.com/api/demandes?user_id=$teacherUserId";
 
     final response = await http.get(Uri.parse(url));
 

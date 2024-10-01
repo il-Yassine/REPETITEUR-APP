@@ -35,7 +35,7 @@ class _AllObservationsBodyState extends State<AllObservationsBody> {
   Future<void> fetchData() async {
     final teacherUserId = GetStorage().read("teacherUserId");
     final url =
-        "http://apirepetiteur.wadounnou.com/api/postes?user_id=$teacherUserId";
+        "http://api-mon-encadreur.com/api/postes?user_id=$teacherUserId";
 
     final response = await http.get(Uri.parse(url));
 

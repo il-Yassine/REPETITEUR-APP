@@ -45,7 +45,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     final userId = GetStorage().read("userId");
 
     final url =
-        "http://apirepetiteur.wadounnou.com/api/postes?user_id=$userId";
+        "http://api-mon-encadreur.com/api/postes?user_id=$userId";
 
     final response = await http.get(Uri.parse(url));
 
@@ -66,7 +66,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
     final userId = GetStorage().read("userId");
 
     final notificationsUrl =
-        'http://apirepetiteur.wadounnou.com/api/notifications?user_id=$userId';
+        'http://api-mon-encadreur.com/api/notifications?user_id=$userId';
 
     final response = await http.get(Uri.parse(notificationsUrl));
 
@@ -90,7 +90,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
   Future<void> markNotificationsAsRead() async {
     for (String notificationId in unreadNotificationIds) {
       final notificationsUrl =
-          'http://apirepetiteur.wadounnou.com/api/notifications/$notificationId';
+          'http://api-mon-encadreur.com/api/notifications/$notificationId';
 
       final response = await http.put(
         Uri.parse(notificationsUrl),
