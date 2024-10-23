@@ -57,7 +57,7 @@ class TeacherLoginingProvider extends ChangeNotifier {
     try {
       final request = await http.get(
         Uri.parse(
-            'http://apirepetiteur.wadounnou.com/api/repetiteurs?user_id=$userId'),
+            'http://api-mon-encadreur.com/api/repetiteurs?user_id=$userId'),
         headers: {'Content-Type': 'application/json'},
       );
 
@@ -186,7 +186,7 @@ class TeacherLoginingProvider extends ChangeNotifier {
     return _userId;
   }
 
-  final profilUrl = "http://apirepetiteur.wadounnou.com/api/profile";
+  final profilUrl = "http://api-mon-encadreur.com/api/profile";
 
   Future<bool> checkUserRoleId(String token) async {
     try {

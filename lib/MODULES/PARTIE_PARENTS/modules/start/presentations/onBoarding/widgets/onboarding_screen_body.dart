@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_PARENTS/modules/screens/terms_&_conditions/terms_and_conditions.screen.dart';
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_PARENTS/modules/start/presentations/landing/landing_screen.dart';
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_PARENTS/modules/start/presentations/onBoarding/widgets/onboarding_screen_content.dart';
 import 'package:repetiteur_mobile_app_definitive/core/constants/PARENTS/constants.dart';
@@ -19,22 +20,22 @@ class _OnBoardingScreenBodyState extends State<OnBoardingScreenBody> {
 
   List<Map<String, String>> onBoardingData = [
     {
-      "text": "Bienvenue sur MON REPETITEUR",
+      "text": "Bienvenue sur MON ENCADREUR",
       "image": "assets/onboarding_images/1.png",
     },
     {
-      "text": "Avec MON REPETITEUR, vous pouvez faire des demandes de cours de maison pour vos enfants",
+      "text": "Avec MON ENCADREUR, vous pouvez faire des demandes de cours de maison pour vos enfants",
       "image": "assets/onboarding_images/2.png",
     },
     {
       "text":
-      "Consultez toujours MON REPETITEUR pour suivre l'evolution d'etudes de vos enfants",
+      "Consultez toujours MON ENCADREUR pour suivre l'evolution d'etudes de vos enfants",
       "image": "assets/onboarding_images/3.png",
     },
-    {
-      "text": "Avec MON REPETITEUR, l'enprentissage en ligne est également accessible",
-      "image": "assets/onboarding_images/4.png",
-    }
+    // {
+    //   "text": "Avec MON REPETITEUR, l'enprentissage en ligne est également accessible",
+    //   "image": "assets/onboarding_images/4.png",
+    // }
   ];
 
   @override
@@ -84,7 +85,7 @@ class _OnBoardingScreenBodyState extends State<OnBoardingScreenBody> {
                         press: () async {
                           final onBoardingPrefs = await SharedPreferences.getInstance();
                           await onBoardingPrefs.setBool('showOnboarding', false);
-                          Navigator.pushNamed(context, ParentLandingScreen.routeName);
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const TermsAndConditionsScreen()));
                         },
                       ),
                     ),

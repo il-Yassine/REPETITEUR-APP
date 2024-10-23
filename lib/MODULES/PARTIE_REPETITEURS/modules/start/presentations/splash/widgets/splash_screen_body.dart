@@ -57,7 +57,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody> {
         duration: 6000,
         splashTransition: SplashTransition.fadeTransition,
         animationDuration: const Duration(seconds: 2),
-        nextScreen: /* checkRoleAndToken() ? TeacherHomeScreen() :  */const SelectedRoleScreen(),
+        nextScreen: widget.nextScreen,
     );
   }
 
