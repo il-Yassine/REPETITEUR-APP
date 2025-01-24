@@ -275,22 +275,22 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      "Status",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    verticalSpaceTiny,
-                    Text(
-                      arguments.teachers.status.toString(),
-                      maxLines: 4,
-                      style: const TextStyle(
-                          fontSize: 15.0, fontWeight: FontWeight.normal),
-                      textAlign: TextAlign.justify,
-                    ),
-                    SizedBox(
-                      height: SizeConfig.screenHeight * 0.03,
-                    ),
+                    // const Text(
+                    //   "Status",
+                    //   style:
+                    //       TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    // ),
+                    // verticalSpaceTiny,
+                    // Text(
+                    //   arguments.teachers.status.toString(),
+                    //   maxLines: 4,
+                    //   style: const TextStyle(
+                    //       fontSize: 15.0, fontWeight: FontWeight.normal),
+                    //   textAlign: TextAlign.justify,
+                    // ),
+                    // SizedBox(
+                    //   height: SizeConfig.screenHeight * 0.03,
+                    // ),
                     const Text(
                       "Description",
                       style:
@@ -308,7 +308,7 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
                       height: SizeConfig.screenHeight * 0.03,
                     ),
                     const Text(
-                      "Détail sur l'adresse",
+                      "Adresse",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -323,24 +323,24 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
                     SizedBox(
                       height: SizeConfig.screenHeight * 0.03,
                     ),
+                    // const Text(
+                    //   "Ecole de provenance",
+                    //   style:
+                    //       TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    // ),
+                    // verticalSpaceTiny,
+                    // Text(
+                    //   arguments.teachers.ecole.toString(),
+                    //   maxLines: 4,
+                    //   style: const TextStyle(
+                    //       fontSize: 15.0, fontWeight: FontWeight.normal),
+                    //   textAlign: TextAlign.justify,
+                    // ),
+                    // SizedBox(
+                    //   height: SizeConfig.screenHeight * 0.03,
+                    // ),
                     const Text(
-                      "Ecole de provenance",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    verticalSpaceTiny,
-                    Text(
-                      arguments.teachers.ecole.toString(),
-                      maxLines: 4,
-                      style: const TextStyle(
-                          fontSize: 15.0, fontWeight: FontWeight.normal),
-                      textAlign: TextAlign.justify,
-                    ),
-                    SizedBox(
-                      height: SizeConfig.screenHeight * 0.03,
-                    ),
-                    const Text(
-                      "Grade",
+                      "Statut",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -463,7 +463,7 @@ class _TeacherDetailsScreenState extends State<TeacherDetailsScreen> {
                   }
                 : null, // Désactive le bouton si la condition n'est pas remplie
             child: const Text(
-              "Demander ce répétiteur",
+              "Demander ce encadreur",
               style: TextStyle(color: kWhite),
             ),
           ),

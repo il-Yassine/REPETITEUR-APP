@@ -82,6 +82,7 @@ class _SelectedRoleScreenState extends State<SelectedRoleScreen> {
           appBar: AppBar(
             elevation: 0,
             backgroundColor: Colors.transparent,
+            automaticallyImplyLeading: false,
             actions: const [
               Padding(
                 padding: EdgeInsets.only(right: 15.0),

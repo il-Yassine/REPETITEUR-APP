@@ -24,14 +24,14 @@ class TeacherUpdateInformationsProvider extends ChangeNotifier {
     required String adresse,
     required String cycle,
     required String commune_id,
-    required String phone,
+     String? phone,
     String? profil_imageUrl,
     String? diplome_imageUrl,
     String? casierJudiciaire,
     String? attestationResidence,
     String? identite,
     required String description,
-    required String ecole,
+    String? ecole,
     required String heureDisponibilite,
     required String grade,
     required String dateLieuNaissance,
@@ -55,27 +55,27 @@ class TeacherUpdateInformationsProvider extends ChangeNotifier {
     var client = http.Client();
 
     final body = {
-      "commune_id": commune_id,
-      "cycle": cycle,
-      "diplome_imageUrl": diplome_imageUrl,
-      "profil_imageUrl": profil_imageUrl,
-      "phone": phone,
-      "adresse": adresse,
-      "description": description,
-      "dateLieuNaissance": dateLieuNaissance,
-      "situationMatrimoniale": situationMatrimoniale,
-      "niveauEtude": niveauEtude,
-      "heureDisponibilite": heureDisponibilite,
-      "identite": identite,
-      "casierJudiciaire": casierJudiciaire,
-      "attestationResidence": attestationResidence,
-      "sexe": sexe,
-      "grade": grade,
-      "ecole": ecole,
-      "experience": experience,
+      "commune_id": commune_id ?? "",
+      "cycle": cycle ?? "",
+      "diplome_imageUrl": diplome_imageUrl ??"",
+      "profil_imageUrl": profil_imageUrl ?? "",
+      "phone": phone ?? "",
+      "adresse": adresse ?? "",
+      "description": description ?? "",
+      "dateLieuNaissance": dateLieuNaissance ?? "",
+      "situationMatrimoniale": situationMatrimoniale ?? "",
+      "niveauEtude": niveauEtude ?? "",
+      "heureDisponibilite": heureDisponibilite ?? "",
+      "identite": identite?? "",
+      "casierJudiciaire": casierJudiciaire ?? "",
+      "attestationResidence": attestationResidence ?? "",
+      "sexe": sexe ?? "",
+      "grade": grade ?? "",
+      "ecole": ecole ?? "",
+      "experience": experience ?? "",
     };
     debugPrint('réponse du body ::: $body');
-
+debugPrint(teacherToken);
     try {
       var request = await client.put(
         uploadInformationsUrl,
@@ -87,6 +87,7 @@ class TeacherUpdateInformationsProvider extends ChangeNotifier {
       debugPrint(teacherToken);
       debugPrint('${request.statusCode}');
       debugPrint(request.body);
+      
 
       if (request.statusCode == 200 || request.statusCode == 201) {
         final response = jsonDecode(request.body);

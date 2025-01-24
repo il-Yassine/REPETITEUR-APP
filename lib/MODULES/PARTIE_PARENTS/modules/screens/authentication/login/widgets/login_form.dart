@@ -20,7 +20,7 @@ class _ParentLoginFormScreenState extends State<ParentLoginFormScreen> {
   final _formKey = GlobalKey<FormState>();
   String? email;
   String? phone;
-
+bool _isObscured = true;
   String? password;
   bool rememberMe = false;
 
@@ -231,9 +231,9 @@ class _ParentLoginFormScreenState extends State<ParentLoginFormScreen> {
             textAlign: TextAlign.justify,
             controller: _passwordController,
             cursorColor: Colors.deepPurple,
-            obscureText: true,
+            obscureText: _isObscured,
             onSaved: (newValue) => password = newValue!,
-            decoration: const InputDecoration(
+            decoration:  InputDecoration(
                 hintText: "Mot de passe",
                 enabledBorder: OutlineInputBorder(
                     borderSide:
@@ -244,7 +244,18 @@ class _ParentLoginFormScreenState extends State<ParentLoginFormScreen> {
                     borderRadius: BorderRadius.all(Radius.circular(10.0))),
                 border: InputBorder.none,
                 hintStyle:
-                    TextStyle(color: Color.fromARGB(255, 206, 206, 206))),
+                    TextStyle(color: Color.fromARGB(255, 206, 206, 206)),
+                    suffixIcon: IconButton(
+          icon: Icon(
+            _isObscured ? Icons.visibility_off : Icons.visibility,
+          ),
+          onPressed: () {
+            setState(() {
+              _isObscured = !_isObscured;
+            });
+          },
+        ),
+                    ),
             validator: (value) {
               if (value!.isEmpty) {
                 addError(error: kPassNullError);
@@ -297,7 +308,7 @@ class _ParentLoginFormScreenState extends State<ParentLoginFormScreen> {
             keyboardType: TextInputType.phone,
             onSaved: (newValue) => phone = newValue!,
             decoration: const InputDecoration(
-                hintText: "99887733",
+                hintText: "0199887733",
                 enabledBorder: OutlineInputBorder(
                     borderSide:
                         BorderSide(color: Color.fromARGB(255, 198, 198, 198)),
@@ -314,8 +325,10 @@ class _ParentLoginFormScreenState extends State<ParentLoginFormScreen> {
               }
 
               if (value.length == 8 ||
+                  value.length == 10 ||
                   value.length == 12 ||
-                  value.length == 13) {
+                  value.length == 13 ||
+                  value.length == 15) {
                 return null; // La taille du numéro de téléphone est valide
               } else {
                 return "Le numéro de téléphone n'est pas valide";

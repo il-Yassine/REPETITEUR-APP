@@ -25,7 +25,7 @@ class TeacherAddingInformationProvider extends ChangeNotifier {
 
   Future<String?> getUserIdByName(String name) async {
     final usersUrl = Uri.parse(
-        'http://apirepetiteur.wadounnou.com/api/users?name=$name');
+        'http://www.api-mon-encadreur.com/api/users?name=$name');
 
     var client = http.Client();
 
@@ -70,7 +70,7 @@ class TeacherAddingInformationProvider extends ChangeNotifier {
 
     if (adminUserId != null) {
       final notificationUrl = Uri.parse(
-          'http://apirepetiteur.wadounnou.com/api/notifications');
+          'https://www.api-mon-encadreur.com/api/notifications');
 
       var client = http.Client();
 
@@ -112,14 +112,14 @@ class TeacherAddingInformationProvider extends ChangeNotifier {
     required String adresse,
     required String cycle,
     required String commune_id,
-    required String phone,
+     String? phone,
     String? profil_imageUrl,
     String? diplome_imageUrl,
     String? casierJudiciaire,
     String? attestationResidence,
     String? identite,
     required String description,
-    required String ecole,
+     String? ecole,
     required String heureDisponibilite,
     required String grade,
     required String dateLieuNaissance,
@@ -140,13 +140,13 @@ class TeacherAddingInformationProvider extends ChangeNotifier {
     var client = http.Client();
 
     final body = {
-      "user_id": teacherUserId,
+      "user_id": teacherUserId ?? "",
       "commune_id": commune_id,
       "matricule": matricule,
       "cycle": cycle,
-      "diplome_imageUrl": diplome_imageUrl,
-      "profil_imageUrl": profil_imageUrl,
-      "phone": phone,
+      "diplome_imageUrl": diplome_imageUrl ?? "",
+      "profil_imageUrl": profil_imageUrl ?? "", 
+      "phone": phone ?? "",
       "adresse": adresse,
       "description": description,
       "dateLieuNaissance": dateLieuNaissance,
@@ -154,17 +154,21 @@ class TeacherAddingInformationProvider extends ChangeNotifier {
       "niveauEtude": niveauEtude,
       "heureDisponibilite": heureDisponibilite,
       "identite": identite,
-      "casierJudiciaire": casierJudiciaire,
-      "attestationResidence": attestationResidence,
+      "casierJudiciaire": casierJudiciaire ?? "",
+      "attestationResidence": attestationResidence ?? "",
       "sexe": sexe,
       "grade": grade,
-      "ecole": ecole,
+      "ecole": ecole ?? "",
       "experience": experience,
     };
 
     debugPrint('réponse du body ::: $body');
+    debugPrint('token du body ::: $teacherToken');
+    debugPrint('user id ::: $teacherUserId');
 
-    try {
+    if(teacherUserId != null && teacherToken != null)
+    {
+      try {
       var request = await client.post(
         uploadInformationsUrl,
         body: body,
@@ -176,7 +180,7 @@ class TeacherAddingInformationProvider extends ChangeNotifier {
       print(request.statusCode);
       print(request.body);
 
-      if (request.statusCode == 200 || request.statusCode == 201) {
+      if (request.statusCode == 201 || request.statusCode == 200) {
         final res = jsonDecode(request.body);
         final teacherId = res['data']['id'];
 
@@ -186,12 +190,18 @@ class TeacherAddingInformationProvider extends ChangeNotifier {
 
          // Nouvelle requête POST pour les notifications
           await sendNotification(teacherId);
-          
+          _resMessage = "Vos informations ont été mises à jour avec succès !"; 
+          showMessage(
+            message: "Vos informations ont été mises à jour avec succès !",
+            backgroundColor: Colors.green,
+          );
+
+          Navigator.pushNamed(context!, TeacherHomeScreen.routeName);
         _isLoading = false;
         notifyListeners();
 
-        if (res['success'] == true) {
-          /* _resMessage = "Vos informations ont été mises à jour avec succès !"; */
+        if (request.statusCode == 201) {
+           _resMessage = "Vos informations ont été mises à jour avec succès !"; 
           showMessage(
             message: "Vos informations ont été mises à jour avec succès !",
             backgroundColor: Colors.green,
@@ -226,6 +236,15 @@ class TeacherAddingInformationProvider extends ChangeNotifier {
 
       print("::::: $e");
     }
+    }else{
+       _resMessage = "Le token  est vide veuillez vous reconnectés !"; 
+          showMessage(
+            message: " Le token  est vide veuillez vous reconnectés !",
+            backgroundColor: Colors.red,
+          );
+    }
+
+    
   }
 
   void clear() {

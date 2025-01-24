@@ -33,7 +33,7 @@ class TeacherFileUploadProvider extends ChangeNotifier {
     final teacherToken = GetStorage().read("token");
 
     try {
-      var mediaUrl = 'http://apirepetiteur.wadounnou.com/api/medias';
+      var mediaUrl = 'http://www.api-mon-encadreur.com/api/medias';
 
       var request = http.MultipartRequest("POST", Uri.parse(mediaUrl));
       request.files.add(await http.MultipartFile.fromPath(

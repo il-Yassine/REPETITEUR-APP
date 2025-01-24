@@ -9,7 +9,7 @@ class SchoolList {
 
   static Future<List<School>> getAllSchool() async {
     
-    const allSchoolUrl = 'http://apirepetiteur.wadounnou.com/api/ecoles';
+    const allSchoolUrl = 'https://api-mon-encadreur.com/api/ecoles';
 
     final response = await http.get(Uri.parse(allSchoolUrl));
 

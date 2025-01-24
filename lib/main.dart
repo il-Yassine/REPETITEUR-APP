@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:get/get.dart';
 import 'package:repetiteur_mobile_app_definitive/MODULES/PARTIE_PARENTS/modules/screens/details/teacher_details_screen.dart';
@@ -34,6 +35,7 @@ import 'package:repetiteur_mobile_app_definitive/provider/teacher_sent_message_p
 Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
+   await GetStorage.init();
   // await StorageService().init();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);

@@ -25,6 +25,7 @@ class TeacherLoginingProvider extends ChangeNotifier {
   String? _userId;
 
   String? _token;
+  String? tokens;
 
   final userToken = '';
 
@@ -101,6 +102,7 @@ class TeacherLoginingProvider extends ChangeNotifier {
 
       if (request.statusCode == 200 || request.statusCode == 201) {
         final Map<String, dynamic> res = jsonDecode(request.body);
+        tokens = res['access_token'];
         await usersProfile();
         _token = res['access_token'];
         debugPrint('token utilisateur ::: $_token');
@@ -109,13 +111,15 @@ class TeacherLoginingProvider extends ChangeNotifier {
 
         debugPrint(res.toString());
 
-        if (valid) {
+        if (valid && GetStorage().read('teacherUserId')!= null ) {
           DatabaseProvider().saveToken(_token!);
           _isLoading = false;
           _resMessage = "Connexion Réussie!";
           String userId = GetStorage().read('teacherUserId').toString();
+          debugPrint("user_id bien bien : $userId");
           bool isValidated = await checkUser(userId);
           if (isValidated == false) {
+            
             PageNavigator(ctx: context)
                 .nextPage(page: const TeacherAddingInformationScreen());
           } else if (isValidated == true) {
@@ -158,8 +162,9 @@ class TeacherLoginingProvider extends ChangeNotifier {
     var profileUrl = Uri.https(requestBaseUrl, '/api/profile');
     try {
       final response = await client
-          .get(profileUrl, headers: {'Authorization': 'Bearer $_token'});
+          .get(profileUrl, headers: {'Authorization': 'Bearer $tokens'});
       debugPrint("etape 1");
+      debugPrint("etape 1 ::: $_token");
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
         debugPrint("response data : $responseData");
@@ -171,7 +176,7 @@ class TeacherLoginingProvider extends ChangeNotifier {
           userData.write('teacherUserEmail', responseData['email']);
           userData.write('teacherUserPhone', responseData['phone']);
           userData.write('userProfileImage', responseData['profile_photo_url']);
-          userData.write('token', _token);
+          userData.write('token', tokens);
           debugPrint('id : $_userId');
         }
       }

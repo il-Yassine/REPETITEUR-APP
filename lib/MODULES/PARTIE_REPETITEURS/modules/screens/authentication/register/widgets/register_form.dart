@@ -415,7 +415,7 @@ class _TeacherRegisterFormScreenState extends State<TeacherRegisterFormScreen> {
             keyboardType: TextInputType.phone,
             onSaved: (newValue) => phone = newValue!,
             decoration: const InputDecoration(
-                hintText: "99887733",
+                hintText: "0199887733",
                 enabledBorder: OutlineInputBorder(
                     borderSide:
                         BorderSide(color: Color.fromARGB(255, 198, 198, 198)),
@@ -432,8 +432,10 @@ class _TeacherRegisterFormScreenState extends State<TeacherRegisterFormScreen> {
               }
 
               if (value.length == 8 ||
+                  value.length == 10 ||
                   value.length == 12 ||
-                  value.length == 13) {
+                  value.length == 13 ||
+                  value.length == 15) {
                 return null; // La taille du numéro de téléphone est valide
               } else {
                 return "Le numéro de téléphone n'est pas valide";

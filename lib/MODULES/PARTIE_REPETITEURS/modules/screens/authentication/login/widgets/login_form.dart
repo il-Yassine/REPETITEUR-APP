@@ -23,6 +23,7 @@ class _TeacherLoginFormScreenState extends State<TeacherLoginFormScreen> {
   String? phone;
   String? password;
   bool rememberMe = false;
+  bool _isObscured = true;
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
@@ -232,9 +233,9 @@ class _TeacherLoginFormScreenState extends State<TeacherLoginFormScreen> {
             textAlign: TextAlign.justify,
             controller: _passwordController,
             cursorColor: Colors.deepPurple,
-            obscureText: true,
+            obscureText: _isObscured,
             onSaved: (newValue) => password = newValue!,
-            decoration: const InputDecoration(
+            decoration:  InputDecoration(
                 hintText: "Mot de passe",
                 enabledBorder: OutlineInputBorder(
                     borderSide:
@@ -245,7 +246,19 @@ class _TeacherLoginFormScreenState extends State<TeacherLoginFormScreen> {
                     borderRadius: BorderRadius.all(Radius.circular(10.0))),
                 border: InputBorder.none,
                 hintStyle:
-                    TextStyle(color: Color.fromARGB(255, 206, 206, 206))),
+                    TextStyle(color: Color.fromARGB(255, 206, 206, 206)),
+                      suffixIcon: IconButton(
+                  icon: Icon(
+                    _isObscured ? Icons.visibility_off : Icons.visibility,
+                    color: Colors.grey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _isObscured = !_isObscured;
+                    });
+                  },
+                ),
+                    ),
             validator: (value) {
               if (value!.isEmpty) {
                 addError(error: kPassNullError);
@@ -295,10 +308,11 @@ class _TeacherLoginFormScreenState extends State<TeacherLoginFormScreen> {
             textAlign: TextAlign.justify,
             controller: _phoneController,
             cursorColor: Colors.blue,
+             
             keyboardType: TextInputType.phone,
             onSaved: (newValue) => phone = newValue!,
-            decoration: const InputDecoration(
-                hintText: "99887733",
+            decoration:  InputDecoration(
+                hintText: "0199887733",
                 enabledBorder: OutlineInputBorder(
                     borderSide:
                         BorderSide(color: Color.fromARGB(255, 198, 198, 198)),
@@ -308,15 +322,23 @@ class _TeacherLoginFormScreenState extends State<TeacherLoginFormScreen> {
                     borderRadius: BorderRadius.all(Radius.circular(10.0))),
                 border: InputBorder.none,
                 hintStyle:
-                    TextStyle(color: Color.fromARGB(255, 206, 206, 206))),
+                    TextStyle(color: Color.fromARGB(255, 206, 206, 206)),
+                    
+                  
+                    ),
+  
+
              validator: (value) {
               if (value!.isEmpty) {
                 return "Renseignez votre numéro de téléphone";
               }
 
-              if (value.length == 8 ||
+              if (
+                value.length == 8 ||
+                value.length == 10 ||
                   value.length == 12 ||
-                  value.length == 13) {
+                  value.length == 13 ||
+                  value.length == 15) {
                 return null; // La taille du numéro de téléphone est valide
               } else {
                 return "Le numéro de téléphone n'est pas valide";

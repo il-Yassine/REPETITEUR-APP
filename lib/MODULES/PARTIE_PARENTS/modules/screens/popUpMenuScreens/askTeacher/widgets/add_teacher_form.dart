@@ -288,7 +288,7 @@ class _AddTeacherFormState extends State<AddTeacherForm> {
       appBar: AppBar(
         iconTheme: const IconThemeData(color: kWhite),
         backgroundColor: kPrimaryColor,
-        title: const Text("Demande de répétiteur", style: TextStyle(color: kWhite)),
+        title: const Text("Demande d'encadreur", style: TextStyle(color: kWhite)),
         centerTitle: true,
         elevation: 0,
       ),

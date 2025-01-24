@@ -57,7 +57,7 @@ class ParentRegisteringProvider extends ChangeNotifier {
           PageNavigator(ctx: context).nextPage(page: const ParentLoginScreen());
         } else if (res['success'] == false &&
             res['message'] == 'Validation errors') {
-          _resMessage = 'L\'email est déjà en cours d\'utilistion';
+          _resMessage = res['data']?['email']?[0] ?? res['data']?['phone']?[0];
           notifyListeners();
         }
       } else {

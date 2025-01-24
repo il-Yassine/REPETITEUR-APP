@@ -57,7 +57,7 @@ class TeacherRegisteringProvider extends ChangeNotifier {
               .nextPage(page: const TeacherLoginScreen());
         } else if (res['success'] == false &&
             res['message'] == 'Validation errors') {
-          _resMessage = 'L\'email est déjà en cours d\'utilistion';
+          _resMessage =res['data']?['email']?[0] ?? res['data']?['phone']?[0] ;
           notifyListeners();
         }
       } else {

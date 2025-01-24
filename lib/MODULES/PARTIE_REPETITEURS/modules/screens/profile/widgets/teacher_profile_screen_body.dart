@@ -86,8 +86,9 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
               final validRequestsCount = validRequestsCountSnapshot.data!;
 
               final profilPicture = teacherData['profil_imageUrl'];
-              final phoneNumber = teacherData['phone'];
+              final phoneNumber = teacherData['user']['phone'];
               final commune = teacherData['commune']['name'];
+              final communeId = teacherData['commune']['id'];
               final address = teacherData['adresse'];
               final description = teacherData['description'];
               final ecole = teacherData['ecole'];
@@ -98,9 +99,23 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
               final studyLevel = teacherData['niveauEtude'];
               final sexe = teacherData['sexe'];
               final experience = teacherData['experience'];
+              final cycle = teacherData['cycle'];
               final teacherId = teacherData['id'];
 
               GetStorage().write('teacherId', teacherId);
+              GetStorage().write('teacherAdress', address);
+              GetStorage().write('teacherAge', dateLieuNaissance);
+              GetStorage().write('teacherCommune', commune);
+              GetStorage().write('teacherCycle', cycle);
+              GetStorage().write('teacherSexe', sexe);
+              GetStorage().write('teacherNiveauEtude', studyLevel);
+              GetStorage().write('teacherProfil', profilPicture);
+              GetStorage().write('teacherStatut', grade);
+              GetStorage().write('teacherSituation', maritalStatus);
+              GetStorage().write('teacherExperience', experience);
+              GetStorage().write('teacherdisponibilité', disponibilite);
+              GetStorage().write('teacherdescription', description);
+              GetStorage().write('teacherIdCom', communeId);
 
               return Scaffold(
                 body: SafeArea(
@@ -210,20 +225,20 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
                                 SizedBox(
                                   height: SizeConfig.screenHeight * 0.03,
                                 ),
-                                const Text(
-                                  "Ecole de provenance",
-                                  style: TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                                Text(
-                                  "$ecole",
-                                  style: TextStyle(
-                                      fontSize: SizeConfig.screenHeight * 0.02),
-                                ),
-                                SizedBox(
-                                  height: SizeConfig.screenHeight * 0.03,
-                                ),
+                                // const Text(
+                                //   "Ecole de provenance",
+                                //   style: TextStyle(
+                                //       fontSize: 18.0,
+                                //       fontWeight: FontWeight.w700),
+                                // ),
+                                // Text(
+                                //   "$ecole",
+                                //   style: TextStyle(
+                                //       fontSize: SizeConfig.screenHeight * 0.02),
+                                // ),
+                                // SizedBox(
+                                //   height: SizeConfig.screenHeight * 0.03,
+                                // ),
                                 const Text(
                                   "Mon emploie du temps",
                                   style: TextStyle(
@@ -239,13 +254,13 @@ class _TeacherProfileScreenBodyState extends State<TeacherProfileScreenBody> {
                                   height: SizeConfig.screenHeight * 0.03,
                                 ),
                                 const Text(
-                                  "Date et lieu de naissance",
+                                  "Age",
                                   style: TextStyle(
                                       fontSize: 18.0,
                                       fontWeight: FontWeight.w700),
                                 ),
                                 Text(
-                                  "$dateLieuNaissance",
+                                  "$dateLieuNaissance ans",
                                   style: TextStyle(
                                       fontSize: SizeConfig.screenHeight * 0.02),
                                 ),
